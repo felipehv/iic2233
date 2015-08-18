@@ -42,6 +42,7 @@ class Inalambrico(Audifono):
 			self.conectado = True
 		else:
 			print('Error, el reproductor esta muy lejos.')
+			self.conectado = False
 
 class Bluetooth(Inalambrico):
 	def __init__(self,identificador,**kwargs):
