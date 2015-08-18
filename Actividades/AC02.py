@@ -42,7 +42,6 @@ class Inalambrico(Audifono):
 
 class Bluetooth(Inalambrico):
 	def __init__(self,identificador,**kwargs):
-		print(kwargs)
 		super().__init__(self,**kwargs)
 		self.identificador = identificador
 
@@ -57,9 +56,9 @@ class Bluetooth(Inalambrico):
 
 
 if __name__ == '__main__':
-	#audifono = Audifono(frecMin=20,frecMax=18000,impedancia=15,VolumenMax=100)
-	#inalambrico = Inalambrico(rango=10,frecMin=18,frecMax=15000,
-	#				impedancia=10,VolumenMax=60)
+	audifono = Audifono(frecMin=20,frecMax=18000,impedancia=15,VolumenMax=100)
+	inalambrico = Inalambrico(rango=10,frecMin=18,frecMax=15000,
+					impedancia=10,VolumenMax=60)
 	bluetooth = Bluetooth(frecMin=18,frecMax=15000,\
 					impedancia=10,VolumenMax=60,rango=10,identificador=2233)
 	audifono.escuchar('Money') 
