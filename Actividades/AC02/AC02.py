@@ -1,6 +1,5 @@
 class Audifono:
 	def __init__(self,frecMin,frecMax,impedancia,VolumenMax,**kwargs):
-		print(frecMin)
 		self.frecMin = frecMin
 		self.frecMax = frecMax
 		self.impedancia = impedancia
