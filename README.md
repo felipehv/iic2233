@@ -13,7 +13,7 @@ Asegúrate de llenar lo siguiente:
 
 | Nº Alumno    | Nombre              | Email UC      |
 |:-------------|:--------------------|:--------------|
-| 123456789    | Nombre alumno       | correo@uc.cl  |
+| 14632640     | Felipe Haase        | fahaase@uc.cl |
 
 
 ## Sobre las entregas
