@@ -1,57 +1,47 @@
 import lib
 import main
-from main import lista_personas,lista_cursos
+from main import lista_personas
 
-def SignIn(usuario,contrasena):
+def login(usuario,contrasena):
 	for i in range(len(lista_personas)):
-		if lista_personas[i].user == user:
-			if lista_personas[i].contrasena == contrasena:
+		if lista_personas[i].user == usuario:
+			if lista_personas[i].password == contrasena:
 				return True,i
 			else:
-				return False,'Contrasena incorrecta'
+				print('Contrasena incorrecta try again')
+				return False,''
 		else:
-			return False,'Usuario no existe'
+			print('Usuario no encontrado')
+			return False,''
 			
 class Banner:
     def __init__(self):
         self.opciones = {
-                        "1": print('Bien'),
-                        "2": print('Bien'),
-                        "3": print('Bien'),
-                        "4": print('Bien'),
-                        "5": print('Bien')
+                        "1": login,
+                        "2": self.buscacursos,
+                        "3": self.exit
                         }
 
-    def display_menu_alumno(self):
+    def displayMenu(self):
         print("""
-            Menu:
-                1: Buscar cursos
-                2: Tomar curso
-                3: Eliminar curso
-                4: Modificar Post-It existente
-                5: Salir
+        	Bienvenido al sistema de toma de ramos Bummer
+        				¿Que desea hacer?
+                		1: Iniciar Sesion
+                		2: Buscar cursos
+                		3: Salir
             """)
 
-    def buscar_ramos(self):
+    def buscacursos(self):
     	pass
 
-
-
+    def exit():
+    	pass
 
 if __name__ == '__main__':
 	banner = Banner()
 	while True:
-		print('Bienvenido al sistema banner')
-		usuario = input('Ingrese su usuario, exit para salir')
-		if usuario == 'exit':
-			break
-		contrasena = input('Ingrese contrasena')
-		if SignIn(usuario,contrasena)[0]:
-			while True:
-				user_id = SignIn(usuario,contrasena)[0]
-				print('Bienvenido {}'.format(lista_personas[user_id]))
-				banner.display_menu()
-
+		banner.displayMenu()
+		opcion = input()
 
 
 	print('Gracias por entrar a banner, adios.')

@@ -16,7 +16,7 @@ def text2dict(texto):
 
 
 def parser(archivo):
-	with open(archivo) as reader:
+	with open(archivo,'r',encoding="utf8") as reader:
 		texto_plano = reader.readlines()
 		lista = [p.strip() for p in texto_plano]
 		texto_plano = None #Ahorro de memoria
