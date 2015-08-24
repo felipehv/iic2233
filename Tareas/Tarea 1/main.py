@@ -16,7 +16,7 @@ class Alumno(Persona):
 		self.aprobados = ramos_pre
 		self.idolos = list(idolos)
 		self.seguidores = []
-		self.cantidadIdolos = 0
+		self.cantidad_seguidores = 0
 					    #0  1  2  3  4  5
 		self.horario =[[[],[],[],[],[],[]],
 					   [[],[],[],[],[],[]],
@@ -40,6 +40,9 @@ class Alumno(Persona):
 		for i in range(len(self.horario)):
 			print('Modulo {} {}'.format(i,self.horario[i]))
 
+	def verificar_tope(self,ramo):
+		pass
+
 	def displayMenu(self):
 		pass
 
@@ -50,7 +53,7 @@ class Profesor(Persona):
 
 
 class Curso:
-	requisitos = lib.parser('requisitos.txt')
+	requisitos = lib.parse('requisitos.txt')
 	def __init__(self,sigla,curso,retiro,cred,sec,ofr,campus,
 		NRC,apr,eng,hora_cat='',sala_cat='',hora_lab='',
 		sala_lab='',hora_ayud='',sala_ayud='',**kwargs):
@@ -73,32 +76,37 @@ class Curso:
 	
 		self.horaayud = hora_ayud
 		self.salaayud = sala_ayud
-"""
+
 #Hago el parse a partir de los txt
-lista_personas = lib.parser('personas.txt')
-lista_cursos = lib.parser('cursos.txt')
+lista_personas = lib.parse('personas.txt')
+lista_cursos = lib.parse('cursos.txt')
+print('Parse completado')
 
 #Instanciando personas
+dicc_personas = dict()
 for i in range(len(lista_personas)):
 	if lista_personas[i]['alumno'] == 'SI':
-		lista_personas[i] = Alumno(**lista_personas[i])
+		dicc_personas[lista_personas[i]['nombre']] = Alumno(**lista_personas[i])
 	else:
-		lista_personas[i] = Profesor(**lista_personas[i])
+		dicc_personas[lista_personas[i]['nombre']] = Profesor(**lista_personas[i])
+lista_personas = []
+print('Instancia de personas completa')
 
 #Instanciando cursos
 for i in range(len(lista_cursos)):
 	lista_cursos[i] = Curso(**lista_cursos[i])
+print('Instancia de cursos completa')
+
+
 
 #Numero de seguidores
 #print(datetime.datetime.now())
-#for alumno in lista_personas:
-#	if not alumno.isProfessor:
-#		for idolo in alumno.idolos:
-#			for i in range(len(lista_personas)):
-#				if idolo == lista_personas[i].nombre and not lista_personas[i].isProfessor:
-#					lista_personas[i].seguidores.append(alumno)
-#					lista_personas[i].cantidadIdolos += 1
-#					break
+for alumno in dicc_personas:
+	if not dicc_personas[alumno].isProfessor:
+		for idolo in dicc_personas[alumno].idolos:
+			dicc_personas[idolo].seguidores.append(idolo)
+			dicc_personas[idolo].cantidad_seguidores += 1
+print('Seguidores completa')
 
 #Ordenando por bacanosidad
 #sorted(ut, key=lambda x: x.cantidadIdolos, reverse=True)
@@ -107,4 +115,3 @@ for i in range(len(lista_cursos)):
 
 if __name__ == '__main__':
 	pass
-"""

@@ -1,3 +1,3 @@
-import lib
-a = lib.parser2('personas.txt')
-print(a[120])
+a = {'a':1,'b':2}
+for value in a.itervalues:
+	print(value)
