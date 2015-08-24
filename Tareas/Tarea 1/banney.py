@@ -1,4 +1,3 @@
 import lib
-import main
-ca = lib.parser('evaluaciones.txt')
-ca[0]
+a = lib.parser2('personas.txt')
+print(a[120])

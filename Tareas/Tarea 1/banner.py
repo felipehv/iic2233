@@ -32,7 +32,7 @@ class Banner:
             """)
 
     def buscacursos(self):
-    	pass
+		pass
 
     def exit():
     	pass
