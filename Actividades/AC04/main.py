@@ -33,7 +33,9 @@ def traidores():
         for line in f:
             rivales.add(line.strip())
     traidores = rivales.intersection(bufalos)
-    print(traidores)
+    print('Lista de traidores: ')
+    for traidor in traidores:
+        print(traidor)
 
 
 def pizzas():
