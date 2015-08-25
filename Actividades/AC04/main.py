@@ -13,7 +13,6 @@ def sonda():
         for line in f:
             b = (line.strip().split(','))
             c = ','.join(b[0:4])
-            print(c)
             a[c] = b[4]
     for i in range(consultas):
         coord = input().strip()
