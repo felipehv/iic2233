@@ -53,7 +53,7 @@ def pizzas():
                 encoladas.appendleft(encolar)
                 string = '{} encolada'.format(encolar)
             elif line.strip() == 'SACAR':
-                sacar = encoladas.popleft()
+                sacar = encoladas.pop()
                 string = '{} sacada'.format(sacar)
             print('{}, {} pizza apilada - {} pizzas en cola'.format(string,len(apiladas),len(encoladas)))
 
