@@ -1,35 +1,73 @@
 dateToCoord = {'L': 0, 'M': 1, 'W': 2, 'J': 3, 'V': 4, 'S': 5}
 
 
-def verificar_tope(matriz, dias, mods):
-    for dia in dias:
-        for mod in mods:
-            # Posicion equivalente en la matriz para un dia
-            p_dia = dateToCoord[dia]
-            if matriz[int(mod) - 1][p_dia] == [] or matriz[int(mod) - 1][p_dia] != dias:
-                continue
-            else:
-                return False
-    return True
-
-
-def agregar_horario(matriz, ramo):
+def verificar_tope(matriz, ramo):
     if ramo.horacat:
         dias, mods = ramo.horacat.split(':')
         dias = dias.split('-')
         mods = mods.split(',')
-        if verificar_tope(matriz,dias,mods):
-            pass
+        for dia in dias:
+            for mod in mods:
+                # Posicion equivalente en la matriz para un dia
+                p_dia = dateToCoord[dia]
+                if matriz[int(mod) - 1][p_dia] == []:
+                    continue
+                else:
+                    for elemento in matriz[int(mod) - 1][p_dia]:
+                        if elemento[-1] == 'a':
+                            continue
+                        else:
+                            return False
 
     if ramo.horalab:
         dias, mods = ramo.horalab.split(':')
         dias = dias.split('-')
         mods = mods.split(',')
+        for dia in dias:
+            for mod in mods:
+                # Posicion equivalente en la matriz para un dia
+                p_dia = dateToCoord[dia]
+                if matriz[int(mod) - 1][p_dia] == []:
+                    continue
+                else:
+                    for elemento in matriz[int(mod) - 1][p_dia]:
+                        if elemento[-1] == 'a':
+                            continue
+                        else:
+                            return False
 
-    if ramo.horaayud:
-        dias, mods = ramo.horaayud.split(':')
-        dias = dias.split('-')
-        mods = mods.split(',')
+    return True
+
+
+def agregar_horario(matriz, ramo):
+    if verificar_tope(matriz,ramo):
+        if ramo.horacat:
+            dias, mods = ramo.horacat.split(':')
+            dias = dias.split('-')
+            mods = mods.split(',')
+            for dia in dias:
+                for mod in mods:
+                    p_dia = dateToCoord[dia]
+                    matriz[mod-1][p_dia].append(ramo.nombre+'-'+ramo.seccion)
+
+        if ramo.horalab:
+            dias, mods = ramo.horalab.split(':')
+            dias = dias.split('-')
+            mods = mods.split(',')
+            for dia in dias:
+                for mod in mods:
+                    p_dia = dateToCoord[dia]
+                    matriz[mod-1][p_dia].append(ramo.nombre+'-'+ramo.seccion+'L')
+
+
+        if ramo.horaayud:
+            dias, mods = ramo.horaayud.split(':')
+            dias = dias.split('-')
+            mods = mods.split(',')
+            for dia in dias:
+                for mod in mods:
+                    p_dia = dateToCoord[dia]
+                    matriz[mod-1][p_dia].append(ramo.nombre+'-'+ramo.seccion+'a')
 
     return matriz
 

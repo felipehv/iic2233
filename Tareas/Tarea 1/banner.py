@@ -44,6 +44,8 @@ if __name__ == '__main__':
     banner = Banner()
     while True:
         banner.displayMenu()
-        opcion = input()
+        opcion = input().strip()
+        if self.opciones[opcion]:
+            self.opciones()
 
     print('Gracias por entrar a banner, adios.')

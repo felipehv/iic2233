@@ -1,5 +1,5 @@
 import lib
-# import datetime
+
 
 alumnos = []
 class Persona:
@@ -61,6 +61,9 @@ class Profesor(Persona):
 
 class Curso:
     requisitos = lib.parse('requisitos.txt')
+    req_dic = dict()
+    for req in requisitos:
+        req_dic[req['sigla']] = (req['equiv'],req['prerreq'])
     def __init__(self,sigla,curso,retiro,cred,sec,ofr,campus,
         NRC,apr,eng,hora_cat='',sala_cat='',hora_lab='',
         sala_lab='',hora_ayud='',sala_ayud='',**kwargs):
@@ -73,6 +76,7 @@ class Curso:
         self.seccion = sec
         self.campus = campus
         self.nrc = NRC
+        self.equivalencia = Curso.req_dic[self.nombre][0]
 
         self.horacat = hora_cat
         self.salacat = sala_cat
@@ -83,7 +87,8 @@ class Curso:
         self.horaayud = hora_ayud
         self.salaayud = sala_ayud
 
-        self.requisitos = None
+        self.requisitos = Curso.req_dic[self.nombre][1]
+        
 #Hago el parse a partir de los txt
 lista_personas = lib.parse('personas.txt')
 lista_cursos = lib.parse('cursos.txt')
