@@ -26,22 +26,29 @@ class Alumno(Persona):
                        [[],[],[],[],[],[]]]
 
     def tomar_ramo(self,ramo):
-        self.cursosxtomar.append(ramo)
-        lib.agregar_horario(self.horario,ramo)
+        if verificar_tope and self.cumple_requisitos:
+            self.cursosxtomar.append(ramo)
+            self.horario = lib.agregar_horario(self.horario,ramo)
 
     def botar_ramo(self,ramo):
         for i in range(len(self.horario)):
             for j in range(len(self.horario)):
-                if ramo.nombre in self.horario[i][j]:
-                    self.horario[i][j].pop(self.horario[i][j].index(ramo.nombre))
-                    
+                if ramo.nombre in self.horario[i][j] or ramo.nombre + 'a' in self.horario[i][j]:
+                    try:
+                        self.horario[i][j].pop(self.horario[i][j].index(ramo.nombre))
+                    except:
+                        self.horario[i][j].pop(self.horario[i][j].index(ramo.nombre+'a'))
 
     def imprimir_horario(self):
+        print('   L  M  W  J  V  S ')
         for i in range(len(self.horario)):
-            print('Modulo {} {}'.format(i,self.horario[i]))
+            print('Modulo {} {}'.format(i+1,self.horario[i]))
 
     def verificar_tope(self,ramo):
         pass
+
+    def cumple_requisitos(self,ramo):
+        return True
 
     def displayMenu(self):
         pass
@@ -76,6 +83,7 @@ class Curso:
         self.horaayud = hora_ayud
         self.salaayud = sala_ayud
 
+        self.requisitos = None
 #Hago el parse a partir de los txt
 lista_personas = lib.parse('personas.txt')
 lista_cursos = lib.parse('cursos.txt')

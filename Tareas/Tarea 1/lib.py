@@ -10,6 +10,7 @@ def verificar_tope(matriz, dias, mods):
                 continue
             else:
                 return False
+    return True
 
 
 def agregar_horario(matriz, ramo):
@@ -17,15 +18,20 @@ def agregar_horario(matriz, ramo):
         dias, mods = ramo.horacat.split(':')
         dias = dias.split('-')
         mods = mods.split(',')
+        if verificar_tope(matriz,dias,mods):
+            pass
 
     if ramo.horalab:
         dias, mods = ramo.horalab.split(':')
         dias = dias.split('-')
         mods = mods.split(',')
+
     if ramo.horaayud:
         dias, mods = ramo.horaayud.split(':')
         dias = dias.split('-')
         mods = mods.split(',')
+
+    return matriz
 
 
 def isList(string):
