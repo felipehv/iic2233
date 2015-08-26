@@ -1,10 +1,9 @@
 import lib
 import main
-from main import lista_personas
-
+from main import dicc_personas, dicc_cursos
 
 def login(usuario, contrasena):
-    for i in range(len(lista_personas)):
+    for key in dicc_pesrsonas:
         if lista_personas[i].user == usuario:
             if lista_personas[i].password == contrasena:
                 return True, i
@@ -35,10 +34,19 @@ class Banner:
             """)
 
     def buscacursos(self):
-        pass
+        sigla = input('Ingrese sigla del curso')
+        cursosxmostrar = []
+        try:
+            for key in dicc_cursos:
+                if sigla in key:
+                    cursosxmostrar.append(dicc_cursos[key])
+            for curso in cursosxmostrar:
+                print('Nombre: {}, Sigla: {}, Cupos disponibles/totales: {}/{}'.format(curso.nombre,curso.sigla,curso.disp))
+        except:
+            print('Curso no encontrado')
 
     def exit():
-        pass
+        
 
 if __name__ == '__main__':
     banner = Banner()
@@ -46,6 +54,6 @@ if __name__ == '__main__':
         banner.displayMenu()
         opcion = input().strip()
         if self.opciones[opcion]:
-            self.opciones()
+            self.opciones[opcion]()
 
     print('Gracias por entrar a banner, adios.')

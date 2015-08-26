@@ -126,7 +126,6 @@ def text2dict(texto):
             diccionario[tupla[0][1:-1]] = tupla[1][1:-1]
     return diccionario
 
-
 def parse(archivo):
     with open(archivo, 'r', encoding="utf8") as reader:
         texto_plano = ''

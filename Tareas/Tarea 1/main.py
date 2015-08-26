@@ -25,8 +25,11 @@ class Alumno(Persona):
                        [[],[],[],[],[],[]],
                        [[],[],[],[],[],[]]]
 
-    def tomar_ramo(self,ramo):
-        if verificar_tope and self.cumple_requisitos:
+        self.opciones =  0
+
+    def tomar_ramo(self):
+        ramo = input('Ingrese sigla: ').strip()
+        if self.verificar_tope(ramo) and self.cumple_requisitos(ramo):
             self.cursosxtomar.append(ramo)
             self.horario = lib.agregar_horario(self.horario,ramo)
 
@@ -39,19 +42,27 @@ class Alumno(Persona):
                     except:
                         self.horario[i][j].pop(self.horario[i][j].index(ramo.nombre+'a'))
 
+
     def imprimir_horario(self):
         print('   L  M  W  J  V  S ')
         for i in range(len(self.horario)):
             print('Modulo {} {}'.format(i+1,self.horario[i]))
 
     def verificar_tope(self,ramo):
-        pass
-
-    def cumple_requisitos(self,ramo):
-        return True
+        lib.verificar_tope(self.horario,ramo)
+        return True #Para probar
 
     def displayMenu(self):
-        pass
+        print("""
+            Bienvenido al sistema de toma de ramos Bummer
+                        ¿Que desea hacer?
+                        1: Tomar ramos
+                        2: Botar ramos
+                        3: Imprimir horario
+                        4: Buscar cursos
+                        5: Salir
+            """)
+
 
 class Profesor(Persona):
     def __init__(self,**kwargs):
@@ -60,23 +71,27 @@ class Profesor(Persona):
 
 
 class Curso:
-    requisitos = lib.parse('requisitos.txt')
+    
+    requisitos = lib.parse('txt/requisitos.txt')
     req_dic = dict()
     for req in requisitos:
         req_dic[req['sigla']] = (req['equiv'],req['prerreq'])
+
     def __init__(self,sigla,curso,retiro,cred,sec,ofr,campus,
         NRC,apr,eng,hora_cat='',sala_cat='',hora_lab='',
         sala_lab='',hora_ayud='',sala_ayud='',**kwargs):
         self.sigla = sigla
         self.nombre = curso
-        self.eng = eng
+        self.eng = eng #Requisito ingles
         self.apr = apr
         self.retiro = retiro
         self.creditos = cred
         self.seccion = sec
         self.campus = campus
         self.nrc = NRC
-        self.equivalencia = Curso.req_dic[self.nombre][0]
+        self.ofrecidos = ofr
+        self.disp = ofr
+        self.equivalencia = Curso.req_dic[self.sigla][0]
 
         self.horacat = hora_cat
         self.salacat = sala_cat
@@ -87,11 +102,12 @@ class Curso:
         self.horaayud = hora_ayud
         self.salaayud = sala_ayud
 
-        self.requisitos = Curso.req_dic[self.nombre][1]
-        
+        self.requisitos = Curso.req_dic[self.sigla][1]
+
+
 #Hago el parse a partir de los txt
-lista_personas = lib.parse('personas.txt')
-lista_cursos = lib.parse('cursos.txt')
+lista_personas = lib.parse('txt/personas.txt')
+lista_cursos = lib.parse('txt/cursos.txt')
 print('Parse completado')
 
 #Instanciando personas
@@ -105,25 +121,23 @@ lista_personas = []
 print('Instancia de personas completa')
 
 #Instanciando cursos
+dicc_cursos = dict()
 for i in range(len(lista_cursos)):
-    lista_cursos[i] = Curso(**lista_cursos[i])
+    dicc_cursos[lista_cursos[i]['sigla']] = Curso(**lista_cursos[i])
 print('Instancia de cursos completa')
 
 
-
 #Numero de seguidores
-#print(datetime.datetime.now())
 for alumno in dicc_personas:
     if not dicc_personas[alumno].isProfessor:
         for idolo in dicc_personas[alumno].idolos:
             dicc_personas[idolo].seguidores.append(idolo)
             dicc_personas[idolo].cantidad_seguidores += 1
+
 print('Seguidores completa')
 
 #Ordenando por bacanosidad
 #sorted(ut, key=lambda x: x.cantidadIdolos, reverse=True)
-
-#print(datetime.datetime.now())
 
 if __name__ == '__main__':
     pass
