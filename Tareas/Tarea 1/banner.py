@@ -46,7 +46,7 @@ class Banner:
             print('Curso no encontrado')
 
     def exit():
-        
+        break
 
 if __name__ == '__main__':
     banner = Banner()
@@ -55,5 +55,7 @@ if __name__ == '__main__':
         opcion = input().strip()
         if self.opciones[opcion]:
             self.opciones[opcion]()
+        else:
+            break
 
     print('Gracias por entrar a banner, adios.')

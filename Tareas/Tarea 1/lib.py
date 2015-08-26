@@ -1,6 +1,5 @@
 dateToCoord = {'L': 0, 'M': 1, 'W': 2, 'J': 3, 'V': 4, 'S': 5}
 
-
 def verificar_tope(matriz, ramo):
     if ramo.horacat:
         dias, mods = ramo.horacat.split(':')
@@ -59,7 +58,6 @@ def agregar_horario(matriz, ramo):
                     p_dia = dateToCoord[dia]
                     matriz[mod-1][p_dia].append(ramo.nombre+'-'+ramo.seccion+'L')
 
-
         if ramo.horaayud:
             dias, mods = ramo.horaayud.split(':')
             dias = dias.split('-')
@@ -89,7 +87,6 @@ def SepararEnObjetos(texto, lista):
                     break
         else:
             i += 1
-
 
 def text2dict(texto):
     diccionario = dict()
