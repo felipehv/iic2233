@@ -51,6 +51,7 @@ class Banner:
 if __name__ == '__main__':
     banner = Banner()
     while True:
+        hora = input('¿Que hora es? (HHMM)').strip()
         banner.displayMenu()
         opcion = input().strip()
         if self.opciones[opcion]:

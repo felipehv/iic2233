@@ -2,6 +2,13 @@ import lib
 from personas import Persona, Profesor, Alumno
 from cursos import Curso
 
+"""
+En este main se realizan los parse de los archivos con los datos de cursos,
+personas, etc. y las instancias de las mismas, ademas del calculo de la 
+bacanosidad.
+
+"""
+
 #Hago el parse a partir de los txt
 lista_personas = lib.parse('txt/personas.txt')
 lista_cursos = lib.parse('txt/cursos.txt')
@@ -31,6 +38,9 @@ for alumno in dicc_personas:
             dicc_personas[idolo].seguidores.append(idolo)
             dicc_personas[idolo].cantidad_seguidores += 1
 
+#Sumando bacanosodad de los demas.
+for alumno in dicc_personas:
+    for seguidor in alumno.
 print('Seguidores completa')
 
 #Ordenando por bacanosidad

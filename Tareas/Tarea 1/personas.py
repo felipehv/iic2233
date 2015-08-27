@@ -14,6 +14,7 @@ class Alumno(Persona):
         self.idolos = list(idolos)
         self.seguidores = []
         self.cantidad_seguidores = 0
+        self.puntosextra = 0
                         #0  1  2  3  4  5
         self.horario =[[[],[],[],[],[],[]],
                        [[],[],[],[],[],[]],
