@@ -69,7 +69,7 @@ class Branch(Nodo):
         #############
         return files
 
-    def checkout(ide):
+    def checkout(self,ide):
         files = set()
         for branch in self.hijos:
             for commit in branch.commits:
@@ -77,7 +77,8 @@ class Branch(Nodo):
                     for xfile in branch.files:
                         files.add(xfile)
 
-            files.union(branch.checkout)
+            files = files.union(branch.checkout(ide))
+            files.add(".jit")
         return files
 
 
