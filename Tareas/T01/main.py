@@ -15,13 +15,12 @@ lista_cursos = lib.parse('txt/cursos.txt')
 print('Parse completado')
 
 #Instanciando personas
-dicc_alumnos = dict()
-dicc_profesores = dict()
+dicc_personas = dict()
 for i in range(len(lista_personas)):
     if lista_personas[i]['alumno'] == 'SI':
-        dicc_alumnos[lista_personas[i]['nombre']] = Alumno(**lista_personas[i])
+        dicc_personas[lista_personas[i]['nombre']] = Alumno(**lista_personas[i])
     else:
-        dicc_profesores[lista_personas[i]['nombre']] = Profesor(**lista_personas[i])
+        dicc_personas[lista_personas[i]['nombre']] = Profesor(**lista_personas[i])
 lista_personas = []
 print('Instancia de personas completa')
 
@@ -33,27 +32,30 @@ print('Instancia de cursos completa')
 
 
 #Numero de seguidores
-for alumno in dicc_alumnos:
-    for idolo in dicc_alumnos[alumno].idolos:
-        dicc_alumnos[idolo].seguidores.append(idolo)
-        dicc_alumnos[idolo].cantidad_seguidores += 1
+for alumno in dicc_personas:
+    if not dicc_personas[alumno].isProfessor:
+        for idolo in dicc_personas[alumno].idolos:
+            dicc_personas[idolo].seguidores.append(idolo)
+            dicc_personas[idolo].cantidad_seguidores += 1
 
 #Sumando bacanosodad de los demas.
-for key in dicc_alumnos:
-    for seguidor in dicc_alumnos[key].seguidores:
-        dicc_alumnos[key].puntosextra += dicc_alumnos[seguidor].cantidad_seguidores // len(dicc_alumnos[seguidor].idolos)
-    dicc_alumnos[key].bacanosidad = dicc_alumnos[key].cantidad_seguidores + dicc_alumnos[key].puntosextra
+for key in dicc_personas:
+    if not dicc_personas[key].isProfessor:
+        for seguidor in dicc_personas[key].seguidores:
+            dicc_personas[key].puntosextra += dicc_personas[seguidor].cantidad_seguidores // len(dicc_personas[seguidor].idolos)
+        dicc_personas[key].bacanosidad = dicc_personas[key].cantidad_seguidores + dicc_personas[key].puntosextra
 
 print('Bacanosidad completa')
 
 masbacan = [None,0]
 menosbacan = [None,100000000]
-for key in dicc_alumnos:
-    if dicc_alumnos[key].bacanosidad > masbacan[1]:
-        masbacan[0],masbacan[1] = key,dicc_alumnos[key].bacanosidad
-    elif dicc_alumnos[key].bacanosidad < menosbacan[1]:
-        menosbacan[0],menosbacan[1] = key,dicc_alumnos[key].bacanosidad
-print(dicc_alumnos['Mateo Pizarro'].bacanosidad)
+for key in dicc_personas:
+    if not dicc_personas[key].isProfessor:
+        if dicc_personas[key].bacanosidad > masbacan[1]:
+            masbacan[0],masbacan[1] = key,dicc_personas[key].bacanosidad
+        elif dicc_personas[key].bacanosidad < menosbacan[1]:
+            menosbacan[0],menosbacan[1] = key,dicc_personas[key].bacanosidad
+print(dicc_personas['Mateo Pizarro'].bacanosidad)
 print(masbacan,menosbacan)
 
 

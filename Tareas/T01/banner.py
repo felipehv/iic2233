@@ -1,18 +1,21 @@
 import lib
 import main
-from main import dicc_alumnos, dicc_cursos, dicc_profesores
+from main import dicc_personas, dicc_cursos
 
-def login(usuario, contrasena):
-    for key in dicc_pesrsonas:
-        if lista_personas[i].user == usuario:
-            if lista_personas[i].password == contrasena:
-                return True, i
+def login():
+    usuario = input('Ingrese usuario: ').strip()
+    for key in dicc_personas:
+        if dicc_personas[key].user == usuario:
+            contrasena = input('Ingrese contrasena: ')
+            if dicc_personas[key].password == contrasena:
+                print('Bienvenido {}'.format(key))
+                return key
             else:
                 print('Contrasena incorrecta try again')
-                return False, ''
-        else:
-            print('Usuario no encontrado')
-            return False, ''
+                return False
+    
+    print('Usuario no encontrado')
+    return False
 
 
 class Banner:
@@ -36,17 +39,18 @@ class Banner:
     def buscacursos(self):
         sigla = input('Ingrese sigla del curso')
         cursosxmostrar = []
-        try:
-            for key in dicc_cursos:
-                if sigla in key:
-                    cursosxmostrar.append(dicc_cursos[key])
-            for curso in cursosxmostrar:
-                print('Nombre: {}, Sigla: {}, Cupos disponibles/totales: {}/{}'.format(curso.nombre,curso.sigla,curso.disp))
-        except:
-            print('Curso no encontrado')
+        for key in dicc_cursos:
+            if sigla in key:
+                cursosxmostrar.append(dicc_cursos[key])
+        if cursosxmostrar == []:
+            print('No encontrado')
+            return
+        for curso in cursosxmostrar:
+            print('Nombre: {}, Sigla: {}, Cupos disponibles/totales: {}/{}'.format(curso.nombre,curso.sigla,curso.disp,curso.ofrecidos))
 
-    def exit():
-        break
+
+    def exit(self):
+        pass
 
 if __name__ == '__main__':
     banner = Banner()
@@ -54,9 +58,18 @@ if __name__ == '__main__':
         hora = input('¿Que hora es? (formato: HHMM): ').strip()
         banner.displayMenu()
         opcion = input().strip()
-        if self.opciones[opcion]:
-            self.opciones[opcion]()
+        if banner.opciones[opcion] == login:
+            nombre = login()
+            if nombre:
+                persona = dicc_personas[nombre]
+                while True:
+                    print('Bienvenido {}'.format(usuario))
+
+
+
+        elif banner.opciones[opcion]:
+            banner.opciones[opcion]()
         else:
             break
 
-    print('Gracias por entrar a banner, adios.')
+    print('Gracias por entrar a Bummer, adios.')
