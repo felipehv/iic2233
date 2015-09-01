@@ -16,12 +16,11 @@ class Reporte:
 		return retorno
 
 	def comprobar_cantidad(self):
+		i = 0
 		for color in self.colores:
-			if len(self.Retornar(self.colores)) < 10:
-				continue
-			else:
-				return False
-		return True
+			if len(self.Retornar(self.colores)) == 10:
+				i += 1
+		return i == 5
 
 
 	def __iter__(self):
