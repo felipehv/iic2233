@@ -13,7 +13,6 @@ class Reporte:
 	def Retornar(self,color):
 		retorno = [paciente for paciente in self.pacientes 
 		if paciente.split('\t')[4] == color]
-		print(retorno)
 		return retorno
 
 	def comprobar_cantidad(self):
@@ -56,8 +55,8 @@ if __name__ == '__main__':
 				if not len(reporte.Retornar(color)) >= 10 and color in reporte.colores:
 					reporte.pacientes.append(next(ids)+linea)
 					lineas_revisadas += 1
-
 			else:
 				break
+
 	for color in reporte.colores:
 		print(reporte.Retornar(color))
