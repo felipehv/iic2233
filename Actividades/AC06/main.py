@@ -50,7 +50,6 @@ if __name__ == '__main__':
 		while True:
 			if reporte.comprobar_cantidad():
 				linea = next(lineas)
-				print(linea)
 				color = linea.split('\t')[3]
 				if not len(reporte.Retornar(color)) >= 10 and color in reporte.colores:
 					reporte.pacientes.append(next(ids)+linea)
