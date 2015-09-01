@@ -8,7 +8,6 @@ def login():
         if dicc_personas[key].user == usuario:
             contrasena = input('Ingrese contrasena: ')
             if dicc_personas[key].password == contrasena:
-                print('Bienvenido {}'.format(key))
                 return key
             else:
                 print('Contrasena incorrecta try again')
@@ -63,7 +62,9 @@ if __name__ == '__main__':
             if nombre:
                 persona = dicc_personas[nombre]
                 while True:
-                    print('Bienvenido {}'.format(usuario))
+                    print('Bienvenido {}'.format(nombre))
+                    a = input()
+                    break
 
 
 
