@@ -10,3 +10,10 @@
 2/09: 
 3/09: Dead line, funcionamiento, readme.md
 4/09: Entrega
+
+Caso normal (split(' o '))
+"(ICE2004 y ICE2313) o (ICE1302 y ING1011) o (ICE1302 y IPP1000) o (ICE2005 y ICE2313)"
+
+Casos raros
+"(ICS1513 o EAE105A) y EYP1113"
+"(ICM2303 o ICE2313 o ICM2028) y (ICM2313 o (ICE1302 y ICM1122 y ING1011) o (ICE1302 y ICM1122 y IPP1000))"

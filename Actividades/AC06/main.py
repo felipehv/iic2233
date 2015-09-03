@@ -56,5 +56,5 @@ if __name__ == '__main__':
 			else:
 				break
 
-	for color in reporte.colores:
-		print(reporte.Retornar(color))
+		for color in reporte.colores:
+			print(reporte.Retornar(color))

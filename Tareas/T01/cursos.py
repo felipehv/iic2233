@@ -32,3 +32,10 @@ class Curso:
         self.salaayud = sala_ayud
 
         self.requisitos = Curso.req_dic[self.sigla][1]
+
+lista_cursos = lib.parse('txt/cursos.txt')
+#Instanciando cursos
+dicc_cursos = dict()
+for i in range(len(lista_cursos)):
+    dicc_cursos[lista_cursos[i]['NRC']] = Curso(**lista_cursos[i])
+print('Instancia de cursos completa')
