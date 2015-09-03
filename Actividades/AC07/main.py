@@ -1,6 +1,5 @@
 from utils.parser import ApacheLogsParser
 from functools import reduce
-from utiltools import groupby
 
 #Sin for, sum, len, while
 class BigAnalizador:
@@ -25,6 +24,13 @@ class BigAnalizador:
     def url_mas_solicitada(self):
         diccionario = dict()
         lista = list(map(lambda x: x.request, iter(self.logs)))
+
+        listaunicos = list(set(lista))
+        largounicos =  list(map(lambda x: 0,listaunicos))
+        largolargounicos = reduce(lambda x,y : x + y , iter(largounicos))
+
+        iteracion = map(filter(lambda x: x in , iter(lista)), iter(listaunicos))
+        
 
 
         return 
