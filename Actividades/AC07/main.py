@@ -29,7 +29,7 @@ class BigAnalizador:
         largounicos =  list(map(lambda x: 0,listaunicos))
         largolargounicos = reduce(lambda x,y : x + y , iter(largounicos))
 
-        iteracion = map(filter(lambda x: x in , iter(lista)), iter(listaunicos))
+        #iteracion = map(filter(lambda x: x in , iter(lista)), iter(listaunicos))
         
 
 
