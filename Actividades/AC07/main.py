@@ -7,7 +7,6 @@ class BigAnalizador:
 
     def __init__(self, logs):
         self.logs = logs
-        print(len(self.logs))
 
     def bytes_transferidos(self):
         return reduce(lambda x,y : x + y , iter(map(lambda x: x.size, iter(self.logs))))   
@@ -26,6 +25,7 @@ class BigAnalizador:
     def url_mas_solicitada(self):
         diccionario = dict()
         lista = list(map(lambda x: x.request, iter(self.logs)))
+
         return 
 
 if __name__ == '__main__':
