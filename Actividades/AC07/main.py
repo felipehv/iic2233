@@ -26,15 +26,14 @@ class BigAnalizador:
     def url_mas_solicitada(self):
         diccionario = dict()
         lista = list(map(lambda x: x.request, iter(self.logs)))
-        print(lista[0])
-        pass
+        return 
 
 if __name__ == '__main__':
     parser = ApacheLogsParser("./utils/nasa_logs_week.txt")
     logs = parser.get_apache_logs()
     biganalizador = BigAnalizador(logs)
 
-    print(biganalizador.bytes_transferidos())
-    print(biganalizador.errores_servidor())
-    print(biganalizador.solicitudes_exitosas())
+    biganalizador.bytes_transferidos()
+    biganalizador.errores_servidor()
+    biganalizador.solicitudes_exitosas()
     biganalizador.url_mas_solicitada()
