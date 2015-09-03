@@ -15,7 +15,7 @@ class BigAnalizador:
         lista = list(filter(lambda x: x.status in [404,500,501], iter(self.logs)))
         lista = list(map(lambda x: 1,lista))
         return reduce(lambda x,y : x + y , iter(lista)) 
-        #return reduce(max, map(lambda x : len(l.rstrip()), [line for line in open('logs_out.txt')]))
+
 
     def solicitudes_exitosas(self):
         lista = list(filter(lambda x: x.status in [200,302,304], iter(self.logs)))
@@ -25,6 +25,7 @@ class BigAnalizador:
     def url_mas_solicitada(self):
         diccionario = dict()
         lista = list(map(lambda x: x.request, iter(self.logs)))
+
 
         return 
 
