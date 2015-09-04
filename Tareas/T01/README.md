@@ -1,4 +1,5 @@
 # Bummer PUKE y Pacmatico PUKE
+* **Todo demora en cargar aproximadamente 20 segundos en Ubuntu, puede variar segun S.O.**
 
 * Para correr Bummer debes ingresar al shell y correr banner.py con python3
 
