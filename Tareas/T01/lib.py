@@ -1,5 +1,6 @@
 dateToCoord = {'L': 0, 'M': 1, 'W': 2, 'J': 3, 'V': 4, 'S': 5}
 
+
 def verificar_tope(matriz, ramo):
     if ramo.horacat:
         dias, mods = ramo.horacat.split(':')
@@ -17,14 +18,16 @@ def verificar_tope(matriz, ramo):
                             continue
                         else:
                             return False
-                if mod-2 > 0:
-                    for otroramo in matriz[mod-1][p_dia]:
-                        if dicc_cursos[otroramo].campus == ramo.campus:
-                            return False
+                if mod - 2 > 0:
+                    for otroramo in matriz[mod - 1][p_dia]:
+                        for key in dicc_cursos:
+                            if dicc_cursos[key].sigla in otroramo and dicc_cursos[key].campus != ramo.campus:
+                                return False
                 if mod < 7:
                     for otroramo in matriz[mod][p_dia]:
-                        if dicc_cursos[otroramo].campus == ramo.campus:
-                            return False
+                        for key in dicc_cursos:
+                            if dicc_cursos[key].sigla in otroramo and dicc_cursos[key].campus != ramo.campus:
+                                return False
 
     if ramo.horalab:
         dias, mods = ramo.horalab.split(':')
@@ -42,20 +45,21 @@ def verificar_tope(matriz, ramo):
                             continue
                         else:
                             return False
-                if mod-2 > 0:
-                    for otroramo in matriz[mod-1][p_dia]:
-                        if dicc_cursos[otroramo].campus != ramo.campus:
-                            return False
+                if mod - 2 > 0:
+                    for otroramo in matriz[mod - 1][p_dia]:
+                        for key in dicc_cursos:
+                            if dicc_cursos[key].sigla in otroramo and dicc_cursos[key].campus != ramo.campus:
+                                return False
                 if mod < 7:
                     for otroramo in matriz[mod][p_dia]:
-                        if dicc_cursos[otroramo].campus != ramo.campus:
-                            return False
-    print('true')
+                        for key in dicc_cursos:
+                            if dicc_cursos[key].sigla in otroramo and dicc_cursos[key].campus != ramo.campus:
+                                return False
     return True
 
 
 def agregar_horario(matriz, ramo):
-    if verificar_tope(matriz,ramo):
+    if verificar_tope(matriz, ramo):
         if ramo.horacat:
             dias, mods = ramo.horacat.split(':')
             dias = dias.split('-')
@@ -63,7 +67,8 @@ def agregar_horario(matriz, ramo):
             for dia in dias:
                 for mod in mods:
                     p_dia = dateToCoord[dia]
-                    matriz[int(mod)-1][p_dia].append(ramo.nombre+'-'+str(ramo.seccion))
+                    matriz[
+                        int(mod) - 1][p_dia].append(ramo.nombre + '-' + str(ramo.seccion))
 
         if ramo.horalab:
             dias, mods = ramo.horalab.split(':')
@@ -72,7 +77,8 @@ def agregar_horario(matriz, ramo):
             for dia in dias:
                 for mod in mods:
                     p_dia = dateToCoord[dia]
-                    matriz[int(mod)-1][p_dia].append(ramo.nombre+'-'+str(ramo.seccion)+'L')
+                    matriz[
+                        int(mod) - 1][p_dia].append(ramo.nombre + '-' + str(ramo.seccion) + 'L')
 
         if ramo.horaayud:
             dias, mods = ramo.horaayud.split(':')
@@ -81,7 +87,8 @@ def agregar_horario(matriz, ramo):
             for dia in dias:
                 for mod in mods:
                     p_dia = dateToCoord[dia]
-                    matriz[int(mod)-1][p_dia].append(ramo.nombre+'-'+str(ramo.seccion)+'a')
+                    matriz[
+                        int(mod) - 1][p_dia].append(ramo.nombre + '-' + str(ramo.seccion) + 'a')
 
     return matriz
 
@@ -103,6 +110,7 @@ def SepararEnObjetos(texto, lista):
                     break
         else:
             i += 1
+
 
 def text2dict(texto):
     diccionario = dict()
@@ -139,6 +147,7 @@ def text2dict(texto):
             diccionario[tupla[0][1:-1]] = tupla[1][1:-1]
     return diccionario
 
+
 def parse(archivo):
     with open(archivo, 'r', encoding="utf8") as reader:
         texto_plano = ''
@@ -158,22 +167,37 @@ def procesar_reqs():
     text = text.replace(' y ', ' and ')
     return
 
+
 def verificar_hora(hora):
+    if len(hora) < 5:
+        return False
     hora = hora.split(':')
     if hora[0].isdigit() <= 24 and hora[1].isdigit():
         return 0 < int(hora[0]) <= 24 and 0 < int(hora[1]) < 60
 
-def horario_entre(actual,tupla):
-    actual = actual.split(':')
-    tupla = (tupla[0].split(':'),tupla[1].split(':'))
-    return tupla[0][0] <= actual[0] <= actual[1][0] and tupla[1][0] <= actual[1] <= actual[1][1]
 
-def horarioX(n,horario):
+def horario_entre(actual, tupla):
+    actual = actual.split(':')
+    tupla = (tupla[0].split(':'), tupla[1].split(':'))
+    # return tupla[0][0] <= actual[0] <= tupla[1][0] and (tupla[0][1] <=
+    # actual[1] or actual[1] <= tupla[1][1])
+    if tupla[0][0] == actual[0] and actual[1] >= tupla[0][1]:
+        return True
+    elif tupla[1][0] == actual[0] and actual[1] <= tupla[1][1]:
+        return True
+    elif tupla[0][0] <= actual[0] <= tupla[1][0]:
+        return True
+    return False
+
+
+def horarioX(n, horario):
     hora1 = horario[0]
     hora2 = horario[1]
-    hora1 = hora1[0] + str(int(hora1[1])+n) + hora1[2:]
-    hora2 = hora2[0] + str(int(hora2[1])+n) + hora2[2:]
-    return (hora1,hora2)
+    hora1 = hora1[0] + str(int(hora1[1]) + n) + hora1[2:]
+    hora2 = hora2[0] + str(int(hora2[1]) + n) + hora2[2:]
+    if len(hora1) == 6:
+        hora1 = hora1[1:]
+    return (hora1, hora2)
 
 if __name__ == '__main__':
     pass
