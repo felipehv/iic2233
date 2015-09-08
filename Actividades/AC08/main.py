@@ -39,12 +39,13 @@ class Overload:
     def __call__(self, *args, **kwargs):
         # implementar este método para llamar a la función correspondiente
         # a los argumentos entregados.
+        args = list(args)
         for i in range(len(args)):
             args[i] = type(args[i])
+        args = tuple(args)
         for func in self.funciones:
             if args == func[1] or kwargs == func[1]:
-                func(*args,**kwargs)
-                return
+                return func(*args,**kwargs)
 
     # El siguiente método es para que puedan usar esta clase como
     # decorador desde otras clases. No deben modificar nada en él.
