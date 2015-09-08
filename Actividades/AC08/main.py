@@ -24,17 +24,26 @@ class Overload:
 
     def __init__(self, func):
         # implementar este método para inicializar el decorador
-        pass
+        self.funciones = [(func,None)]
 
     def overload(self, *tipos):
         # implementar este método para agregar nuevos overloads la
         # función original
-        pass
+        def _overload(func):
+            f = func
+            self.funciones.append((f,tipos))
+        return _overload
+        
 
     def __call__(self, *args, **kwargs):
         # implementar este método para llamar a la función correspondiente
         # a los argumentos entregados.
-        pass
+        for i in range(len(args)):
+            args[i] = type(args[i])
+        for func in self.funciones:
+            if args == func[1] or kwargs == func[1]:
+                func(*args,**kwargs)
+                return
 
     # El siguiente método es para que puedan usar esta clase como
     # decorador desde otras clases. No deben modificar nada en él.
@@ -57,7 +66,7 @@ if __name__ == "__main__":
     @tipar(list, list, tuple)
     def sumar_lista(lista1, lista2, tupla):
         return lista1 + lista2 + list(tupla)
-"""
+
     class ClaseOverloaded:
 
         def __init__(self, nombre, edad, lista_cosas):
@@ -86,14 +95,14 @@ if __name__ == "__main__":
                                                                                     sum(precios)))
 
     c = ClaseOverloaded('Juan', 22, ['laptop', 'calculadora'])
-"""
+
 print('Tipado:\n')
 print(suma(1, 2))
 print(sumar_string('Hello', 'World'))
 print(sumar_lista([1, 2, 3], [4, 5, 6], (7, 8, 9)))
 
 print('\n------\nOverloading:\n')
-#c.sumar()
-#c.sumar('Solo')
-#c.sumar(2)
-#c.sumar(['celular', 'chocolate'], (68900, 550))
+c.sumar()
+c.sumar('Solo')
+c.sumar(2)
+c.sumar(['celular', 'chocolate'], (68900, 550))
