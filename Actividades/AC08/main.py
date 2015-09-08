@@ -32,6 +32,7 @@ class Overload:
         def _overload(func):
             f = func
             self.funciones.append((f,tipos))
+            return self
         return _overload
         
 
