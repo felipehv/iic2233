@@ -29,6 +29,7 @@ lista_de_puertos.append(puertoanterior)
 puertoanterior.cantidad_conexiones = conexiones
 
 maximus = 3
+maxlen = 0
 #for i in range(10):
 while not_complete(lista_de_puertos):
 	#print(contador)
@@ -38,7 +39,7 @@ while not_complete(lista_de_puertos):
 	conexiones = posibles_conexiones()
 
 	puertoactual,boolean = preguntar_puerto_actual()
-	print(str(len(lista_de_puertos)),maximus)
+	print(str(len(lista_de_puertos)),maximus,puertoactual)
 
 	if puertoactual > maximus:
 		maximus = puertoactual
@@ -54,6 +55,7 @@ while not_complete(lista_de_puertos):
 			if puerto.value.ide == puertoactual:
 				puertoactual = puerto.value
 
+	print()
 	if not boolean:
 		#Puerto actual no en salidas de puerto anterior
 		if puertoactual not in puertoanterior.salidas:
@@ -64,7 +66,7 @@ while not_complete(lista_de_puertos):
 			puertoactual.entradas.append(puertoanterior)
 
 	puertoanterior = puertoactual
-
+"""
 with open('output.txt','w') as writer:
 	for port in lista_de_puertos:
 		port = port.value
@@ -74,3 +76,4 @@ with open('output.txt','w') as writer:
 		writer.write('Salidas: ')
 		writer.write(str(port.salidas) + '\n')
 
+"""
