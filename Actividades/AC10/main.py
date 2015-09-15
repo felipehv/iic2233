@@ -3,12 +3,14 @@ Parte1
 """
 class RestrictedAccess(type):
 	def __new__(meta, nombre, base_clases, diccionario):
-		def init(self,*args,diccionario):
-			for i in range(len(args)):
-				setattr(self,diccionario[key])
 
-		diccionario['__init__'] = RestrictedAccess.init
-		diccionario.pop("attributes", None)
+		def init(self,*args,diccionario = diccionario):
+			print(diccionario)
+			for att in diccionario['attributes']:
+				setattr(self,'__{}'.format(att.strip()),None)
+			diccionario.pop("attributes", None)
+
+		diccionario['__init__'] = init
 
 		return super().__new__(meta, nombre, base_clases, diccionario)
 
