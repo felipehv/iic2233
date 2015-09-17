@@ -7,22 +7,22 @@ class Puerto:
 		self.cantidad_conexiones = 0
 		self.conexion_actual = 0
 		self.n = 0
-		self.salidas = myList()
-		self.entradas = myList()
+		self.salidas = []
+		self.entradas = []
 		self.complete = False
 		self.lastconnection = 0
 
 		"""
 		Conexiones por puerto para ver si son random o no.
 		"""
-		self.salidas2 = myList()
+		self.salidas2 = []
 
 	def __repr__(self):
 		return str(self.ide)	
 
 	def actualizarLista(self):
 		for i in range(self.cantidad_conexiones):
-			self.salidas2.append(myList())
+			self.salidas2.append([])
 
 	def connect(self,func):
 		if self.conexion_actual >= self.cantidad_conexiones and not self.complete:
@@ -32,8 +32,6 @@ class Puerto:
 			if Puerto.completes % 50 == 0:
 				print(Puerto.completes)
 				#a = input()
-#			if Puerto.completes > 700:
-#				print(puerto.completes)
 			self.lastconnection = self.conexion_actual
 			func(self.conexion_actual)
 		elif self.n >= 4 and not self.complete:
@@ -51,8 +49,5 @@ class Puerto:
 			func(self.conexion_actual)
 		else:
 			self.conexion_actual += 1
-			self.connect(func)
-
-
-
-
+			self.lastconnection = self.conexion_actual
+			func(self.conexion_actual)
