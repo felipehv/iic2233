@@ -17,13 +17,19 @@ class myList():
         self.lastElement = mainElement
         self.length = 0
 
+    def copy(self):
+        newlist = myList()
+        for element in self:
+            newlist.append(element)
+        return newlist
+
     def __repr__(self):
         ret = ''
         for i in range(self.length):
             if i == self.length - 1:
-                ret += '{}'.format(self[i].value)
+                ret += '{}'.format(self[i])
             else:
-                ret += '{}, '.format(self[i].value)
+                ret += '{}, '.format(self[i])
         return '[' + ret + ']'
 
     def append(self,value):
@@ -62,7 +68,13 @@ class myList():
         return _pop(self.mainElement,position)
 
     def __setitem__(self,key,value):
-        self[key].value = value
+        if key >= self.length:
+            raise IndexError('Index out of range, stupid')
+            return
+        node = self.mainElement
+        for i in range(key):
+            node = node.son
+        node.value = value
 
     def __getitem__(self,n):
         if n >= self.length:
@@ -71,7 +83,7 @@ class myList():
         node = self.mainElement
         for i in range(n):
             node = node.son
-        return node
+        return node.value
     
     def __len__(self):
         return self.length
@@ -93,16 +105,7 @@ class myList():
         return self.__repr__()
 
     def __add__(self,other):
-    	for element in other:
-    		self.append(other.value)
-
-
-lista = myList()#.append(1)
-lista.append(1)
-lista.append(2)
-lista.append(3)
-lista[0] = 2
-print(lista)
-
-#help(list)   
+        for element in other:
+            self.append(element)
+        return self
 

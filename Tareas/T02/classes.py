@@ -34,8 +34,6 @@ class Puerto:
 			if Puerto.completes % 50 == 0:
 				print(Puerto.completes)
 				#a = input()
-#			if Puerto.completes > 700:
-#				print(puerto.completes)
 			self.lastconnection = self.conexion_actual
 			func(self.conexion_actual)
 		elif self.n >= 4 and not self.complete:
@@ -53,7 +51,8 @@ class Puerto:
 			func(self.conexion_actual)
 		else:
 			self.conexion_actual += 1
-			self.connect(func)
+			self.lastconnection = self.conexion_actual
+			func(self.conexion_actual)
 
 
 
