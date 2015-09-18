@@ -1,6 +1,6 @@
 # Tarea 2
 
-** Classes.py
+** Classes.py **
 *En la libreria classes se puede encontrar la clase Puerto, que junta
 todas las caracteristicas de un nodo dentro de la red.
 *Casi todos los atributos son evidentes, pero explico algunos:
@@ -18,16 +18,16 @@ Realiza las comprobaciones necesarias para poder recorrer 5 veces cada
 puerto en orden. Una vez que llega a self.complete = True, pasa por un
 puerto a la vez.
 
-**Estructuras.py
+**Estructuras.py**
 *Es exactamente una lista, pero menos eficiente
 *class myList(): clase de lista con metodos para poder recorrer, imprimir,
 obtener y agregar elementos, comparar e iterar.
 *class listObject(): nodo de la lista.
 
-**Ciclos.py
+**Ciclos.py**
 *Contiene funciones para calcular los ciclos de bummer.
 
-**Main.py
+**Main.py**
 *En la primera parte, se recorre conectandose a todos los puertos de banner,
 hasta encontrar todos los puertos de la red. La variable maximus, indica el
 maximo valor de nodo que se ha encontrado.
@@ -46,7 +46,7 @@ que no es banner, busca nuevamente en las iteraciones hasta encontrarse con
 banner. Si en algun momento se llega a un nodo sin salida a banner, el
 recorrido ya no sirve.
 
-**Siendo las 6 de la mañana del 18 de septiembre, me voy a dormir, piedad=(
+**Siendo las 6 de la mañana del 18 de septiembre, me voy a dormir, piedad=(**
 
 
 
