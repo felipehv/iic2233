@@ -92,11 +92,12 @@ class myList():
     def __str__(self):
         return self.__repr__()
 
+    def __add__(self,other):
+    	for element in other:
+    		self.append(other.value)
 
-class portsList(myList):
-    pass
 
-lista = myList()
+lista = myList()#.append(1)
 lista.append(1)
 lista.append(2)
 lista.append(3)

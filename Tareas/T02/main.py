@@ -58,6 +58,7 @@ while not_complete(lista_de_puertos):
 		lista_de_puertos[i] = puertoactual
 		puertoactual.cantidad_conexiones = conexiones
 		puertoactual.actualizarLista()
+		puertoactual.capacidad = get_capacidad()
 		puertosencontrados += 1
 		print(puertosencontrados)
 	else:
@@ -65,10 +66,10 @@ while not_complete(lista_de_puertos):
 
 	if not boolean:
 		#Puerto actual no en salidas de puerto anterior
-		"""
+	
 		if puertoactual not in puertoanterior.salidas:
 			puertoanterior.salidas.append(puertoactual)
-		"""
+
 		lc = puertoanterior.lastconnection
 		puertoanterior.salidas2[lc].value.append(puertoactual)
 
@@ -78,14 +79,41 @@ while not_complete(lista_de_puertos):
 
 	puertoanterior = puertoactual
 
-with open('output.txt','w') as writer:
+with open('red.txt','w') as writer:
 	for port in lista_de_puertos:
 		port = port.value
-		writer.write(str(port.ide) +'\n')
-		writer.write('Entradas: ')
-		writer.write(str(port.entradas) + '\n')
-		writer.write('Salidas: ')
-		writer.write(str(port.salidas) + '\n')
+		writer.write("PUERTO {}\n".format(puerto.ide))
+	for port in lista_de_puertos:
+		port = port.value
+		for salida in salidas:
+			writer.write("CONEXION {} {}".format(puerto.ide,salida.ide))
+
+"""
+Ruta a bummer
+"""
+
+def ruta(puerto,ultima_ruta=None):
+	retorno = myList()
+	retono.append(puerto.ide)
+	if puerto.ide == banner:
+		return retorno
+	for port in puerto.salida:
+		port = port.value
+		retorno = retorno + ruta(port)
+		if puerto.ide == 0:
+			if ultima_ruta == None or len(retorno) < ultima_ruta:
+				ultima_ruta = retorno
+			retorno = myList()
+			retorno.append(puerto.ide)
+		else:
+			return retorno
+	if port.ide == 0:
+		return ultima_ruta
+
+ruta = ruta(lista_de_puertos[0])
+
+with open("rutaABummer.txt","w") as writer:
+	pass
 
 print(tiempoinicial,datetime.datetime.now())
 

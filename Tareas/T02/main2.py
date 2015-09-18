@@ -4,7 +4,7 @@ import random as rd
 from classes2 import *
 from ciclos2 import *
 from datetime import datetime
-
+global banner
 
 def not_complete(lista):
 	for element in lista:
@@ -72,6 +72,7 @@ while not_complete(lista_de_puertos):
 			puertoactual.entradas.append(puertoanterior)
 
 	puertoanterior = puertoactual
+
 print('holi')
 with open('output.txt','w') as writer:
 	for key in lista_de_puertos:
@@ -81,16 +82,54 @@ with open('output.txt','w') as writer:
 		writer.write(str(port.entradas) + '\n')
 		writer.write('Salidas: ')
 		writer.write(str(port.salidas2) + '\n')
+
+"""
+Ruta a Bummer
+"""
 print(datetime.now())
+def ruta(puerto,ultima_ruta=None,visitados=[]):
+	print(puerto.ide,banner,puerto.ide in visitados,len(visitados))
+	visitados.append(puerto.ide)
+	retorno = []
+	retorno.append(puerto.ide)
+	if puerto.ide == banner:
+		print('holi')
+		return retorno
+	for port in puerto.salidas:
+		if port.ide not in visitados:
+			route = ruta(port,visitados=visitados)
+			retorno = retorno + route
+			if puerto.ide == 0:
+				if ultima_ruta == None or (len(retorno) < len(ultima_ruta) and retorno[len(retorno)-1] == banner):
+					ultima_ruta = retorno
+				retorno = []
+				retorno.append(puerto.ide)
+				visitados = []
+				visitados.append(puerto.ide)
+			else:
+				return retorno
+	if puerto.ide == 0:
+		return ultima_ruta
+	else:
+		return retorno
+
+ruta = ruta(lista_de_puertos[0])
+print('ruta: ',ruta)
+print(datetime.now())
+
+"""
+Rutas doble, triangulares y cuadradas
+"""
 rutas_doble_sentido = []
 ciclos_triangulares = []
 ciclos_cuadrados = []
 
-cicloDoble(lista_de_puertos,rutas_doble_sentido)
-cicloTriangular(lista_de_puertos,ciclos_triangulares)
-cicloCuadrado(lista_de_puertos,ciclos_cuadrados)
-print(len(rutas_doble_sentido))
-print(len(ciclos_triangulares))
-print(len(ciclos_cuadrados))
+rutas_doble_sentido = cicloDoble(lista_de_puertos,rutas_doble_sentido)
+ciclos_triangulares = cicloTriangular(lista_de_puertos,ciclos_triangulares)
+ciclos_cuadrados = cicloCuadrado(lista_de_puertos,ciclos_cuadrados)
 
-print(datetime.now())
+"""
+Maxima capacidad
+"""
+def maxCap(lista_de_puertos):
+	pass

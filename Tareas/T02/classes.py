@@ -12,6 +12,8 @@ class Puerto:
 		self.complete = False
 		self.lastconnection = 0
 
+		self.capacidad = 0
+
 		"""
 		Conexiones por puerto para ver si son random o no.
 		"""
