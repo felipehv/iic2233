@@ -5,9 +5,9 @@ class Bummer:
                         "Juan Pablo Schele": Alumno("jpschele", 54321),
                         "Ariel Seisdedos": Alumno("robocop6", 123456789)}
 
-        self.ramos = [  Ramo("IIC2133", 10), Ramo("ING2030", 100),
-                       Ramo("ICH1104", 100), Ramo("IIC2143", 30),
-                       Ramo("IIC2413", 30)]
+        self.ramos = [Ramo("IIC2133", 10), Ramo("ING2030", 100),
+                      Ramo("ICH1104", 100), Ramo("IIC2143", 30),
+                      Ramo("IIC2413", 30)]
 
         self.conectado = False
 
@@ -18,8 +18,9 @@ class Bummer:
                     self.usuario_actual = self.alumnos[usuario]
                     self.conectado = True
                     print("se conecto {0}".format(self.usuario_actual.usuario))
-            except (KeyError):
-                print('Error de tipo KeyError: El usuario no se encuentra en nuestra base de datos')
+            except (KeyError) as err:
+                print(
+                    'Error de tipo KeyError: El usuario {} no se encuentra en nuestra base de datos'.format(err))
 
     def inscribir_ramo(self, numero):
         if self.conectado:
@@ -27,13 +28,15 @@ class Bummer:
                 ramo_inscribir = self.ramos[numero]
                 if ramo_inscribir.vacantes > 0:
                     self.usuario_actual.agregar_ramos(ramo_inscribir)
-            except (IndexError): 
-                print('Error de tipo IndexError al tomar ramo: {}, no se ha encontrado el numero de ramo.'.format(self.usuario_actual.usuario))
-            except  (TypeError):
-                print('Error de tipo TypeError al tomar ramo: {}, asegurese de ingresar un numero y no otro tipo de dato.'.format(self.usuario_actual.usuario))
+            except (IndexError):
+                print('Error de tipo IndexError al tomar ramo: {}, no se ha encontrado el numero de ramo.'.format(
+                    self.usuario_actual.usuario))
+            except (TypeError):
+                print('Error de tipo TypeError al tomar ramo: {}, ingreso un ({}) pero se esperaba un int'.format(
+                    self.usuario_actual.usuario, type(numero).__name__))
             else:
                 print("Se inscribio el curso de sigla {0} a {1}".format(ramo_inscribir.sigla,
-                                                                            self.usuario_actual.usuario))
+                                                                        self.usuario_actual.usuario))
 
     def quitar_ramo(self, numero):
         if self.conectado:
@@ -41,11 +44,14 @@ class Bummer:
                 ramo_quitar = self.ramos[numero]
                 self.usuario_actual.quitar_ramos(ramo_quitar.sigla)
             except (IndexError):
-                print('{}: Error de tipo IndexError: el numero de ramo no existe'.format(self.usuario_actual.usuario))
-            except (KeyError):
-                print('{}: Error de tipo KeyError al quitar ramo: Usted no tiene inscrito el ramo {}.'.format(self.usuario_actual.usuario,ramo_quitar.sigla))
+                print('{}: Error de tipo IndexError: el numero de ramo no existe'.format(
+                    self.usuario_actual.usuario))
+            except (KeyError) as err:
+                print('{}: Error de tipo KeyError al quitar ramo: Usted no tiene inscrito el ramo {}.'.format(
+                    self.usuario_actual.usuario, err))
             except (TypeError):
-                print('{}: Error de tipo TypeError al quitar ramo: asegurese de ingresar un numero (int) y no otro tipo de dato.'.format(self.usuario_actual.usuario))
+                print('{}: Error de tipo TypeError al quitar ramo: ingreso un dato ({}) y se esperaba un int'.format(
+                    self.usuario_actual.usuario, type(numero).__name__))
             else:
                 print("Se quito el curso de sigla {0} de la carga academica de {1}".format(ramo_quitar.sigla,
                                                                                            self.usuario_actual.usuario))
@@ -55,16 +61,19 @@ class Bummer:
             try:
                 ramo = self.ramos[numero]
                 self.usuario_actual.calificar_curso(ramo.sigla, nota)
-            except (KeyError):
-                print('Error de tipo KeyError al calificar, {} no tiene el ramo {} inscrito.'.format(self.usuario_actual.usuario,ramo.sigla))
-            except (ValueError):
-                print('Error de tipo ValueError al calificar al usuario {}, ingrese una nota valida tipo float.'.format(self.usuario_actual.usuario))
+            except (KeyError) as err:
+                print('Error de tipo KeyError al calificar, {} no tiene el ramo {} inscrito.'.format(
+                    self.usuario_actual.usuario, err))
+            except (ValueError) as err:
+                print('Error de tipo ValueError al calificar al usuario {}, la nota ingresada no es float.'.format(
+                    self.usuario_actual.usuario, err))
             except (IndexError):
-                print('Error de tipo IndexError al calificar al usuario {}, el numero no se asocia a ningun ramo.'.format(self.usuario_actual.usuario))
+                print('Error de tipo IndexError al calificar al usuario {}, el numero no se asocia a ningun ramo.'.format(
+                    self.usuario_actual.usuario))
 
             else:
                 print("Se califico a {} en el curso {} con la nota {}".format(self.usuario_actual.usuario, ramo.sigla,
-                                                                                  nota))
+                                                                              nota))
 
 """
 
