@@ -38,6 +38,7 @@ class Singleton(type):
 		return super().__new__(meta, nombre, base_clases, diccionario)
 
 	def __call__(cls, *args, **kwargs):
+		print(cls)
 		if not cls in Singleton.classes:
 			Singleton.classes[cls] = super().__call__(*args, **kwargs)
 		elif cls in Singleton.classes:
