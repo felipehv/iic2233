@@ -54,7 +54,7 @@ class Bummer:
                     self.usuario_actual.usuario, type(numero).__name__))
             else:
                 print("Se quito el curso de sigla {0} de la carga academica de {1}".format(ramo_quitar.sigla,
-                                                                                           self.usuario_actual.usuario))
+                                                                                    self.usuario_actual.usuario))
 
     def calificar(self, numero, nota):
         if self.conectado:
@@ -68,8 +68,8 @@ class Bummer:
                 print('Error de tipo ValueError al calificar al usuario {}, la nota ingresada no es float.'.format(
                     self.usuario_actual.usuario, err))
             except (IndexError):
-                print('Error de tipo IndexError al calificar al usuario {}, el numero no se asocia a ningun ramo.'.format(
-                    self.usuario_actual.usuario))
+                print('Error de tipo IndexError al calificar al usuario {}, el numero no se asocia a ningun ramo.'
+                      .format(self.usuario_actual.usuario))
 
             else:
                 print("Se califico a {} en el curso {} con la nota {}".format(self.usuario_actual.usuario, ramo.sigla,
