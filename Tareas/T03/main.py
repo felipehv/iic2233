@@ -6,7 +6,7 @@ class Juego():
 		self.jugador2 = None
 
 	def menu(self):
-		print('\tBienvenido a Battleship by Bummer\t')
+		print('\tBienvenido a BattleSheep by Bummer\t')
 
 	def menuDeJuego(self):
 		pass

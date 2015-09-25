@@ -5,7 +5,7 @@ class Jugador():
         self.opciones = 
 
     def showMenu(self):
-
+    	pass
 
 a = Jugador(5)
 print(a.tierra)
