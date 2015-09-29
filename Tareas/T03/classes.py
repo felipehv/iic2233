@@ -46,9 +46,6 @@ class AvionExplorador(Vehiculo):
 
 
 
-
-
-
 class Ataque():
     def __init__(self,nombre,damage):
         self.damage = 0
