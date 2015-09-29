@@ -50,7 +50,8 @@ class AC13(unittest.TestCase):
 		pass
 
 	def test_getPalabras(self):
-		pass
+		for i in range(len(self.archivos)):
+			self.assertIsInstance(self.archivos[i].get_palabras, int)
 
 	def test_get_descuento(self):
 	    for i in range(len(self.archivos)):
