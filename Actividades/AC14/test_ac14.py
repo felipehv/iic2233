@@ -4,7 +4,7 @@ import pytest
 
 class TestSistema():
 
-    def setup_method(cls,method):
+    def setup_method(cls, method):
         cls.base = Base()
         cls.ramos = list()
         cls.alumno = Alumno(cls.base, 0, "Felipe")
@@ -15,12 +15,12 @@ class TestSistema():
     def test_vacantes(cls):
         cls.base.db[0].vacantes = 0
         sigla = cls.base.db[0].sigla
-        assert not cls.base.inscribir(sigla,cls.alumno)
+        assert not cls.base.inscribir(sigla, cls.alumno)
 
     def test_vacantes2(cls):
         cls.base.db[0].vacantes = 19
         sigla = cls.base.db[0].sigla
-        assert cls.base.inscribir(sigla,cls.alumno)
+        assert cls.base.inscribir(sigla, cls.alumno)
 
     def test_tomar_repetido(cls):
         assert not cls.alumno.tomar_ramo("ICT2213")
@@ -33,7 +33,7 @@ class TestSistema():
         assert not cls.alumno.tomar_ramo("ICS3902")
 
     def test_tomar_true(cls):
-        assert cls.alumno.tomar_ramo("ICS2523") # Pasa
+        assert cls.alumno.tomar_ramo("ICS2523")  # Pasa
 
     def test_botar_ramo_no_tomado(cls):
         # False porque no esta tomado
@@ -54,7 +54,6 @@ class TestSistema():
                 ramo = ramodb
                 break
         assert ramo.vacantes == 30
-
 
     def test_repeticion_repetido(cls):
         cls.alumno.agregar_ramo("ICS3902")  # Forzamos la toma de un ramo
