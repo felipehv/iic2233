@@ -18,7 +18,7 @@ class BarcoPequeno(Vehiculo):
 
     def __init__(self):
         self.resistencia = 30
-        self.ataque = Ataque('Misil Balistico Intercontinental Minuteman III')
+        self.ataque = None
         self.dimension = (3, 1)
         super().__init__(self)
 
@@ -27,7 +27,7 @@ class BuqueDeGuerra(Vehiculo):
 
     def __init__(self):
         self.resistencia = 60
-        self.ataque = Ataque(None, None)
+        self.ataque = None
         self.dimension = (2, 3)
         super().__init__(self)
 
@@ -63,11 +63,59 @@ class AvionExplorador(Vehiculo):
         pass
 
 
-class Ataque():
+class Ataque:
+    def atacar(self,tablero,posicion):
+        pass
 
+
+
+
+
+
+class MBIMIII(Ataque):
     def __init__(self, nombre, damage):
-        self.nombre = nombre
-        self.damage = damage
+        self.nombre = "Misil Balistico Intercontinental Minuteman III"
+        self.damage = 0
+        self.restriccion = 0
+        self.can_attack = True
+        self.turnos_restantes = 0
+
+class MBIMIII(Ataque):
+    def __init__(self, nombre, damage):
+        self.nombre = "Misil Balistico Intercontinental Minuteman III"
+        self.damage = 0
+        self.restriccion = 0
+        self.can_attack = True
+        self.turnos_restantes = 0
+
+class MBIMIII(Ataque):
+    def __init__(self, nombre, damage):
+        self.nombre = "Misil Balistico Intercontinental Minuteman III"
+        self.damage = 0
+        self.restriccion = 0
+        self.can_attack = True
+        self.turnos_restantes = 0
+
+class MBIMIII(Ataque):
+    def __init__(self, nombre, damage):
+        self.nombre = "Misil Balistico Intercontinental Minuteman III"
+        self.damage = 0
+        self.restriccion = 0
+        self.can_attack = True
+        self.turnos_restantes = 0
+
+class MBIMIII(Ataque):
+    def __init__(self, nombre, damage):
+        self.nombre = "Misil Balistico Intercontinental Minuteman III"
+        self.damage = 0
+        self.restriccion = 0
+        self.can_attack = True
+        self.turnos_restantes = 0
+
+class MBIMIII(Ataque):
+    def __init__(self, nombre, damage):
+        self.nombre = "Misil Balistico Intercontinental Minuteman III"
+        self.damage = 0
         self.restriccion = 0
         self.can_attack = True
         self.turnos_restantes = 0

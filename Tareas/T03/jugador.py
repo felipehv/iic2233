@@ -49,11 +49,12 @@ class Jugador():
             else:
                 break
 
-    def mover(self, vehiculo):
+    def mover(self,vehiculo):
         pass
 
-    def atacar(self, vehiculo):
-        pass
+    def atacar(self,vehiculo):
+        
+        vehiculo.atacar()
 
 if __name__ == "__main__":
     a = Jugador(5)
