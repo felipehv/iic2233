@@ -69,9 +69,6 @@ class Ataque:
 
 
 
-
-
-
 class MBIMIII(Ataque):
     def __init__(self, nombre, damage):
         self.nombre = "Misil Balistico Intercontinental Minuteman III"
