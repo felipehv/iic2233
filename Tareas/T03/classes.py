@@ -1,3 +1,5 @@
+from random import randint
+
 class Vehiculo:
 
     def __init__(self):
@@ -12,6 +14,9 @@ class Vehiculo:
         self.menu = {1: self.atacar, 2: self.mover}
 
     def actualizar(self):
+        pass
+
+    def atacar(self):
         pass
 
 class BarcoPequeno(Vehiculo):
@@ -48,7 +53,7 @@ class Puerto():
         self.ataque = None
         self.dimension = (4, 2)
 
-    def showMenu(self):  # Pendiente
+    def atacar(self):
         print("""
             Seleccione barco a reparar.
             """)
@@ -62,6 +67,8 @@ class AvionExplorador(Vehiculo):
     def __init__(self):
         pass
 
+    def explorar(self):
+        pass
 
 class Ataque:
     def atacar(self,tablero,posicion):

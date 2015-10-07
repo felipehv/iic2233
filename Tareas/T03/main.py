@@ -14,10 +14,10 @@ class Juego():
     def menu(self):
         print('\tBienvenido a BattleSheep by Bummer\t')
         print("""
-			Seleccione una opcion:
-			1 : 1 vs 1
-			2 : 1 vs PC:\n
-			""")
+            Seleccione una opcion:
+            1 : 1 vs 1
+            2 : 1 vs PC:\n
+            """)
         opcion = input('Opcion: ').strip()
         try:
             int(opcion)
@@ -26,8 +26,16 @@ class Juego():
             print('Error {}'.format(ex))
 
     def jugar(self):
-    	n = input("Ingrese el tamanio del tablero: ").strip()
-        P1 = Jugador
+        n = input("Ingrese el tamanio del tablero: ").strip()
+        P1 = Jugador(n)
+        P2 = Jugador(n)
+        while True:
+            P1.im
 
     def jugarvsPC(self):
         pass
+
+
+if __name__ == "__main__2":
+    juego = Juego()
+    juego.menu()

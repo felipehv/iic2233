@@ -3,10 +3,21 @@ class Jugador():
     def __init__(self, n):
         self.n = n
         self.nombre = input('Ingrese su nombre: ').strip()
-        self.tierra = [[[] for i in range(n)] for j in range(n)]
-        self.aire = [[[] for i in range(n)] for j in range(n)]
+        self.tierra = [[["   "] for i in range(n)] for j in range(n)]
+        self.aire = [[["   "] for i in range(n)] for j in range(n)]
         self.opciones = {1: self.atacar, 2: self.mover}
         self.vehiculos = []
+
+    def imprimir_tablero(self):
+        print("Aire")
+        for i in range(self.n):
+            print(i,end="")
+            print(self.tierra[i])
+        print("Tierra")
+        for i in range(self.n):
+            print(i,end="")
+            print(self.tierra[i])
+
 
     def showMenu(self):
         while True:
@@ -49,13 +60,17 @@ class Jugador():
             else:
                 break
 
-    def mover(self,vehiculo):
+    def mover(self,vehiculo,dir):
         pass
 
     def atacar(self,vehiculo):
-        
-        vehiculo.atacar()
+        pass
+
+class Robot(Jugador):
+    def __init__(self):
+        super().__init__()
+
 
 if __name__ == "__main__":
     a = Jugador(5)
-    print(a.tierra)
+    a.imprimir_tablero()
