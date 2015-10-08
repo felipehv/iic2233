@@ -23,24 +23,26 @@ class Ataque:
             for i in range(self.area[0]):
                 if self.area[1] == 'n':
                     for j in range(self.n):
-                        if otro.tierra[pos[0] + i][j] != '   ':
-                            key = otro.tierra[pos[0] + i][j]
-                            for v in otro.vehiculos:
+                        if p2.agua[pos[0] + i][j] != '   ':
+                            key = p2.agua[pos[0] + i][j]
+                            for v in p2.vehiculos:
                                 if key == v.nombre and v.isAlive:
                                     v.dano_recibido += self.damage
                                     self.dano_realizado += self.damage
+                                    print("Algo atacado en posicion {},{}".format(pos[0],pos[1]))
                                     self.exito += 1
                                     if v.dano_recibido >= v.resistencia:
                                         v.isAlive = False
                                 self.cantidad_ataques += 1
                 else:
                     for j in range(self.area[1]):
-                        if otro.tierra[pos[0] + i][pos[1] + j] != '   ':
-                            key = otro.tierra[pos[0] + i][pos[1] + j]
-                            for v in otro.vehiculos:
+                        if p2.agua[pos[0] + i][pos[1] + j] != '   ':
+                            key = p2.agua[pos[0] + i][pos[1] + j]
+                            for v in p2.vehiculos:
                                 if key == v.nombre and v.isAlive:
                                     v.dano_recibido += self.damage
                                     self.dano_realizado += self.damage
+                                    print("Algo atacado en posicion {},{}".format(pos[0],pos[1]))
                                     self.exito += 1
                                     if v.dano_recibido >= v.resistencia:
                                         v.isAlive = False
@@ -150,7 +152,7 @@ class Kamikaze(Ataque):
         self.can_attack = True
         self.turnos_restantes = 0
         super().__init__()
-        
+
 
 class Explorar(Ataque):
 
@@ -161,6 +163,39 @@ class Explorar(Ataque):
         self.can_attack = True
         self.turnos_restantes = 0
         super().__init__()
+
+class Paralizador(Ataque):
+
+    def __init__(self):
+        self.nombre = "GBU-43/B Massive Ordnance Air Blast Paralizer"
+        self.damage = 0
+        self.restriccion = 5
+        self.can_attack = True
+        self.turnos_restantes = 0
+        super().__init__()    
+
+    def atacar(self,p1,p2):
+        pos = input('Elija una posicion')
+        if verificar_posicion(pos,p2.aire):
+            for i in range(self.area[0]):
+                if self.area[1] == 'n':
+                    for j in range(self.n):
+                        if p2.aire[pos[0] + i][j] == 'AVE':
+                            key = 'AVE'
+                            for v in p2.vehiculos:
+                                if key == v.nombre and v.isAlive:
+                                    v.paralizar()
+                                    self.exito += 1
+                                self.cantidad_ataques += 1
+                else:
+                    for j in range(self.area[1]):
+                        if p2.aire[pos[0] + i][pos[1] + j] == 'AVE':
+                            key = 'AVE'
+                            for v in p2.vehiculos:
+                                if key == v.nombre and v.isAlive:
+                                    v.paralizar()
+                                    self.exito += 1
+                                self.cantidad_ataques += 1
 
 ataques = {1: MBIMIII(), 2: UGM133(), 3: BGM109(), 4: GBU43(),
            5: KitIngeniero(), 6: Napalm(), 7: Kamikaze(), 8: Explorar()}
