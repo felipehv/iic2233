@@ -8,12 +8,20 @@
 * Ingresa las posiciones de tus fichas *
 * A jugar! *
 
+** Probablemente se caiga y no funcione bien el juego,
+no pude probar todo, hice lo que pude =( **
+
 
 
 
 ** Classes.py **
 * Se encuentran las clases de vehiculo *
 * Cada barco, puerto o avion es subclase de vehiculo *
+
+** Ataques.py **
+* Se encuentran cada uno de los ataques * 
+* Se hace override de la funcion atacar, porque
+algunos ataques no atacan, hacen otras cosas *
 
 
 ** Jugador.py **
@@ -31,6 +39,9 @@ fichas *
 * Esta el juego como clase *
 * En menu se pregunta de cuanto es el tablero y la opcion jugar
  1 vs 1 o contra el pc *
+ * Al finalizar el juego, la funcion ganador() detecta si alguien gano *
+ * Si alguien gana termina el juego y se imprime el informe (a medias)
+ de la participacion en el juego *
 
 
 
