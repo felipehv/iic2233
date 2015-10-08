@@ -30,6 +30,11 @@ class Jugador():
                             self.aire[i][j][0] = "   "
                         if self.agua[i][j] == v.key:
                             self.agua[i][j][0] = "   "
+            else:
+                v.actualizar()
+                #Actualizamos la informacion de ataques
+                #de un vehiculo, paso un turno para los
+                #ataques con restriccion
 
     def imprimir_tablero(self):
         print("aire")

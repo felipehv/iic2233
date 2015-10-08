@@ -1,3 +1,4 @@
+from random import randint,choice
 def verificar_posicion(self,pos,tab):
         try:
             pos = pos.split(',')
@@ -163,6 +164,18 @@ class Explorar(Ataque):
         self.can_attack = True
         self.turnos_restantes = 0
         super().__init__()
+
+    def atacar(self,p1,p2):
+        pos = input("Elija una posicion x,y: ")
+        pos = pos.split(',')
+        pos[0],pos[1] = int(pos[0]),int(pos[1])
+        for i in range(3):
+            print(p2.agua[pos[0]+i][pos[1]:pos[1]+3])
+            #Muestra un cuadrado de 3x3 del mapa oponente
+        if randint(1,2) == 1:
+            pos = choice(p1.vehiculo[1].posiciones)
+            print(pos,p1.agua[pos[0]][pos[1]])
+            #Vehiculo[1] es el explorador
 
 class Paralizador(Ataque):
 
