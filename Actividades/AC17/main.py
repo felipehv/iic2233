@@ -7,7 +7,10 @@ apellidos = ["perez", "johnson","jackson","felipeson","carlson","peterson"]
 Eventos relevantes:
 Cada minuto que pasa , pasa un minuto de partido,
 se verifica que el minuto de partido coincida con 
-los minutos de duracion. Si es asi 
+los minutos de duracion. Si es asi se busca el
+ganador.
+Además cada ciertos minutos se agrega un jugador
+nuevo a la fila
 """
 class Mesa():
 
@@ -92,7 +95,9 @@ class Jugador:
 		self.partidos_jugados = 0
 
 	def retirarse(self):
-		return random.randint(0,10) < self.partidos_jugados
+		#Ya a los 6 partidos uno se aburre jeje
+		print(self.partidos_jugados)
+		return random.randint(0,6) < self.partidos_jugados
 
 	def __repr__(self):
 		return self.nombre
