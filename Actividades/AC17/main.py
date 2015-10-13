@@ -2,6 +2,13 @@ import random
 from collections import deque
 nombres = ["juan","pedro","carlos","felipe","florencia","tamara","ignacio","gonzalo","claudia"]
 apellidos = ["perez", "johnson","jackson","felipeson","carlson","peterson"]
+
+"""
+Eventos relevantes:
+Cada minuto que pasa , pasa un minuto de partido,
+se verifica que el minuto de partido coincida con 
+los minutos de duracion. Si es asi 
+"""
 class Mesa():
 
 	def __init__(self):
@@ -12,7 +19,7 @@ class Mesa():
 		self.tiempo_partido = round(random.uniform(4,6))
 		self.tiempo_partido_actual = 0
 
-		self.t = 0
+		self.t = 1
 		self.t_proximo_jugador = self.t + round(random.expovariate(1/15) + 0.5)
 
 	def pasar_minuto(self):
@@ -70,7 +77,7 @@ class Mesa():
 		return nuevo_jugador
 
 	def run(self):
-		while self.t < 70:
+		while self.t <= 70:
 			if not self.pasar_minuto():
 				break
 			self.t += 1
