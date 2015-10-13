@@ -18,14 +18,18 @@ nuevo a la fila.
 class Mesa():
 
     def __init__(self):
-        self.jugador1 = Jugador()
+        self.jugador1 = Jugador() 
         self.jugador2 = Jugador()
         self.lista_espera = deque()  # Lista de espera
         self.lista_espera.appendleft(Jugador())
+        #Tiempo que durara el partido
         self.tiempo_partido = round(random.uniform(4, 6))
+        #Tiempo transcurrido
         self.tiempo_partido_actual = 0
 
+        #Tiempo de simulacion
         self.t = 1
+        #Tiempo en el que aparecera el proximo jugador
         self.t_proximo_jugador = self.t + \
             round(random.expovariate(1 / 15) + 0.5)
 
