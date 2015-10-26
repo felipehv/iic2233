@@ -22,8 +22,8 @@ def main():
 
     # Como la simulación es por eventos discretos (muy rápida), es
     # recomendable esperar algún intervalo de tiempo entre actualizaciones
-    # de la interfaz. Es importante detallar en el README.md si se decide
-
+    # de la interfaz. Es importante detallar en el README.md si se decid
+e
     for i in range(1, 21):
         grilla_simulacion.agregar_calle(i, 13)
         grilla_simulacion.agregar_calle(13, i)

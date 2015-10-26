@@ -6,7 +6,7 @@ from gui.gui import GrillaSimulacion
 
 def main():
     app = QtGui.QApplication([])
-    grilla_simulacion = GrillaSimulacion()
+    grilla_simulacion = GrillaSimulacion(app)
     grilla_simulacion.agregar_ambulancia(1, 1, 0, True)
     grilla_simulacion.agregar_auto(2, 2, 90, False)
     grilla_simulacion.agregar_casa(3, 3)
