@@ -43,11 +43,17 @@ def main():
     # la ejecución del programa.
     app.exec_()
 
-#Primera Parte
-class Simulacion:
+# Primera Parte
 
+
+class Simulacion:
+        nuevo_auto = [
+                grilla_simulacion.agregar_convertible,
+                grilla_simulacion.agregar_sedan,
+                grilla_simulacion.agregar_pickup
+            ]
     def __init__(self):
-        #Variables estadisticas
+        # Variables estadisticas
         self.cantidad_autos = 0
         self.tiempo_incendios = []
         self.ladron_escapa = 0
@@ -58,50 +64,54 @@ class Simulacion:
             height = int(first[0])
             width = int(first[1])
             self.app = QtGui.QApplication([])
-            self.grilla = GrillaSimulacion(self.app, height, width)
-            self.grilla.tiempo_intervalo = 0.1
-            self.matriz = [ [ [] for i in range(width) ] for j in range(height)]
+            self.grilla = GrillaSimulacion(self.app, height+1, width+1)
+            self.grilla.tiempo_intervalo = 0.01
+            self.matriz = [ [ [] for i in range(width+1) ] for j in range(height+1)]
+            print(self.matriz)
             for linea in reader:
                 linea = linea.split(' ')
                 pos = linea[0].strip().split(',')
-                pos_x = int(pos[0])
-                pos_y = int(pos[1])
+                pos_x = int(pos[0])+1
+                pos_y = int(pos[1])+1
                 if linea[1] == "casa":
                     print(pos)
                     self.grilla.agregar_casa(pos_x,pos_y)
-                    #self.matriz[pos_x][pos_y] = Casa(1,1)
+                    # self.matriz[pos_x][pos_y] = Casa(1,1)
                     self.grilla.actualizar()
                 elif linea[1] == "calle":
                     self.grilla.agregar_calle(pos_x,pos_y)
-                    #self.matriz[pos_x][pos_y].append(Calle(False,linea[2].strip()))
-                    #self.grilla.actualizar()
+                    # self.matriz[pos_x][pos_y].append(Calle(False,linea[2].strip()))
+                    self.grilla.actualizar()
                 elif linea[1] == "vacio":
-                    #.grilla.actualizar()
+                    self.grilla.actualizar()
                     pass
         self.matriz = [[] for i in range(1)]
         self.grilla.show()
         self.app.exec_()
 
 
+    def generar_incendio(self):
+        lista_casas = []
+        for i in range(len(self.matriz)):
+            for j in range(len(self.matriz)):
+                if self.matriz[i][j][0].__class__.__name__ == "Casa":
+                    lista_casas.append([self.matriz[i][j][0]])
+        ultimo_rango
+        for casa in lista_casas
+
     def pasar_segundo(self):
         for i in range(len(self.matriz)):
             for j in range(len(self.matriz)):
                 self.matriz.simular()
 
-    def generar_incendio(self):
-        lista_casas = []
-        for i in range(len(self.matriz)):
-            for j in range(len(self.matriz)):
-                pass
-
     def simular(self):
         with open("informe.txt") as writer:
-            t = 0
-            prox_incendio = rd.expovariate(1/10)
-            prox_robo = 0
-            prox_enfermo = 0
-            while t < 
-
+            t = 0 #En segundos
+            prox_incendio = rd.expovariate(1/10)*60*60
+            prox_robo = t + rd.expovariate(1/4)*60*60
+            prox_enfermo = t + rd.expovariate(1/2)*60*60
+            while t < 50400:
+                if prox_incendio
 
     def escribir_informe(self):
         pass
