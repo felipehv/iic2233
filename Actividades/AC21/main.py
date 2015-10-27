@@ -13,6 +13,7 @@ class Tweet():
         fecha = fecha.split(':')
         self.hour = fecha[0]
         self.min = fecha[1]
+        self.hora = fecha[0], fecha[1]
         self.mensaje = mensaje
 
     @property
@@ -48,14 +49,18 @@ def read_tweets_window(start, end, tweets, players_names):
     # Revisar las palabras para cada tweet si está en la ventana de tiempo
     words_frequency = {}
     players_frequency = {}
+    for tweet in tweets:
+        if is_in_time_window(tweet.hour, start, end):
+            words_frequency, players_frequency = read_tweet(tweet, words_frequency, players_frequency, players_name)
     # Filtrar palabras infrecuentes
-
+        #   
     return words_frequency, players_frequency
 
 
 def is_in_time_window(hour, start, end):
     # Implementar
-    return True
+    if hour[0] == start[0] or hour[1] == start[1]:
+        return hour[1] <= end[1] or hour[1] >= start[1]
 
 
 def transform_event_time(minute):
@@ -76,11 +81,13 @@ def frequent_words(tweets, events, players_words):
     event_statistics = {}
 
     for event in events:
-        for tweet in tweets:
-
+        event_hour = transform_event_time(event[0])
+        start = (event_hour[0], event_hour[1] - 3)
+        end = (event_hour[0], event_hour[1] + 5)
+        word_frequency, players_frequency = read_tweets_window(
+            start, end, tweets, player_words)
         # Implementar
         # Obtener frecuencias de las palabras de la ventana del evento
-        words_frequency = {}
 
         # Cada uno de estos archivos lo pueden utilizar en wordcloud
         with open('Evento{}.txt'.format(minute), 'w+') as file_words:
@@ -93,8 +100,9 @@ def frequent_words(tweets, events, players_words):
 def load_names_players(players):
     players_names = {}
     for player in players:
-        if player['nombre'] not in players_names:
-            players_names[player['nombre']] = player['Twitter'] + player['Apodos']
+        if player['Nombre'] not in players_names:
+            players_names[player['nombre']] = player[
+                'Twitter'] + player['Apodos']
     # Implementar
     # Crear diccionario para guardar las palabras asociadas a cada uno de los
     # jugadores
@@ -111,21 +119,21 @@ if __name__ == "__main__":
     players = json.loads(string_players)
 
     tweets = []
-    with open("tweets.csv", encode="unicode") as reader:
+    with open("tweets.csv", encoding="utf-8") as reader:
         for linea in reader:
             if linea in ("", "\n"):
                 continue
             linea = linea.strip().split(',')
-            tweets.append(Tweet(*linea))
+            if len(linea) > 1:
+                tweets.append(Tweet(linea[0],linea[1],linea[2]))
 
     events = []
-    with open("events.csv", encode="unicode") as reader:
+    with open("events.csv", encoding="utf-8") as reader:
         for linea in reader:
             if linea in ("", "\n"):
                 continue
             linea = linea.strip().split(',')
             events.append(linea)
 
-    # Crear dict de jugadores
     players_words = load_names_players(players)
     events_statistics = frequent_words(tweets, events, players_words)
