@@ -101,8 +101,8 @@ def load_names_players(players):
     players_names = {}
     for player in players:
         if player['Nombre'] not in players_names:
-            players_names[player['nombre']] = player[
-                'Twitter'] + player['Apodos']
+            players_names[player['Nombre']] = [player[
+                'Twitter']] + player['Apodos']
     # Implementar
     # Crear diccionario para guardar las palabras asociadas a cada uno de los
     # jugadores
