@@ -97,7 +97,11 @@ class Simulacion:
                 if self.matriz[i][j][0].__class__.__name__ == "Casa":
                     lista_casas.append([self.matriz[i][j][0]])
         ultimo_rango
-        for casa in lista_casas
+        peso_total = 0
+        for i in range(len(lista_casas)):
+            peso_total += lista_casas[i].peso
+            lista_casas[i].peso
+
 
     def pasar_segundo(self):
         for i in range(len(self.matriz)):
@@ -111,7 +115,8 @@ class Simulacion:
             prox_robo = t + rd.expovariate(1/4)*60*60
             prox_enfermo = t + rd.expovariate(1/2)*60*60
             while t < 50400:
-                if prox_incendio
+                if prox_incendio == t:
+                    self.generar_incendio()
 
     def escribir_informe(self):
         pass
