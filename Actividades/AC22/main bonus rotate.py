@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+# Autores: Felipe Haase y Diego Passi
 from zlib import compress, decompress, crc32
 
 
