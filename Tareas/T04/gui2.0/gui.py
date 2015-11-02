@@ -1,6 +1,6 @@
 #!/usr/local/bin python3
 # -*- encoding: utf-8 -*-
-from PyQt4 import QtCore, QtGui, uic
+from PyQt4 import QtCore, QtGui, uic,  as QME
 import random as rnd
 import os
 import time

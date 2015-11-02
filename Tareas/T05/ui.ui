@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mainWindows</class>
+ <widget class="QMainWindow" name="mainWindows">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="botonComenzar">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>230</y>
+      <width>171</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Comenzar el Juego</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuThe_Game">
+    <property name="title">
+     <string>The Game</string>
+    </property>
+    <addaction name="actionJugar"/>
+   </widget>
+   <widget class="QMenu" name="menuHoli">
+    <property name="title">
+     <string>Holi</string>
+    </property>
+    <addaction name="actionHoli"/>
+   </widget>
+   <addaction name="menuThe_Game"/>
+   <addaction name="menuHoli"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionHoli">
+   <property name="text">
+    <string>Holi</string>
+   </property>
+  </action>
+  <action name="actionJugar">
+   <property name="text">
+    <string>Jugar</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
