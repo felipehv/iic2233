@@ -49,8 +49,9 @@ def write_persona(persona):
 
 
 def crear_persona(_id, nombre_completo):
-    persona = Persona(_id,nombre_completo)
-    write_persona(persona)
+    if not existe_persona(_id):
+        persona = Persona(_id,nombre_completo)
+        write_persona(persona)
 
 
 def agregar_amigo(id_1, id_2):
