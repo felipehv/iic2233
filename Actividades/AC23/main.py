@@ -57,8 +57,8 @@ def agregar_amigo(id_1, id_2):
     if existe_persona(id_1) and existe_persona(id_2):
         persona1 = get_persona(id_1)
         persona2 = get_persona(id_2)
-        persona1.agregar_amigo(persona2)
-        persona2.agregar_amigo(persona1)
+        persona1.agregar_amigo(id_2)
+        persona2.agregar_amigo(id_1)
         write_persona(persona1)
         write_persona(persona2)
 
