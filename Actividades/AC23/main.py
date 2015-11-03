@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 import os
 from pickle import loads, dumps, load, dump
+from datetime import datetime
 
 
 class Persona:
@@ -10,17 +11,24 @@ class Persona:
         self.id = ide
         self.nombre = nombre
         self.amigos = []
-        self.seguidores = []
-        self.idolos = []
+        self.favorito = ''
+        self.ultima_fecha = None
+        self.veces_guardado = 0
 
     def agregar_amigo(self,amigo):
         self.amigos.append(amigo)
+
+    def __getstate__(self):
+        diccionario = self.__dict__.copy()
+        diccionario.update({"ultima_fecha": datetime.now(), "veces_guardado": self.veces_guardado + 1})
+        diccionario.update()
+        return diccionario
 
     def __str__(self):
         return self.id + " " + self.nombre
 
     def __repr__(self):
-        return self.__str__(self)
+        return self.__str__()
 
 def existe_persona(_id):
     lista = os.listdir("./db")
@@ -33,8 +41,6 @@ def get_persona(_id):
     if existe_persona(_id):
         with open("./db/{}.iic2233".format(_id),'rb') as archivo:
             return load(archivo)
-
-
 
 def write_persona(persona):
     ide = persona.id
@@ -49,44 +55,37 @@ def crear_persona(_id, nombre_completo):
 
 def agregar_amigo(id_1, id_2):
     if existe_persona(id_1) and existe_persona(id_2):
-        with open("./db/{}.iic2233".format(id_1),"rb") as persona1:
-            persona1 = load(persona1)
-        with open("./db/{}.iic2233".format(id_2),"rb") as persona2:
-            persona2 = load(persona2)
+        persona1 = get_persona(id_1)
+        persona2 = get_persona(id_2)
         persona1.agregar_amigo(persona2)
         persona2.agregar_amigo(persona1)
-        with open("./db/{}.iic2233".format(id_1),"wb") as archivo1:
-            dump(persona1,archivo1)
-        with open("./db/{}.iic2233".format(id_2),"wb") as archivo2:
-            dump(persona2,archivo2)
+        write_persona(persona1)
+        write_persona(persona2)
 
 
 def set_persona_favorita(_id, id_favorito):
     if existe_persona(_id) and existe_persona(id_favorito):
-        with open("./db/{}.iic2233".format(_id),"rb") as persona1:
-            persona = load(persona1)
-        with open("./db/{}.iic2233".format(id_favorito),"rb") as persona2:
-            persona_favorita = load(persona2)
-
-        if persona not in persona_favorita.seguidores:
-            persona_favorita.seguidores.append(persona)
-
-        with open("./db/{}.iic2233".format(_id),"wb") as archivo1:
-            dump(persona,archivo1)
-        with open("./db/{}.iic2233".format(id_favorito),"wb") as archivo2:
-            dump(persona_favorita,archivo2)
-
+        persona = get_persona(_id)
+        persona.favorito = id_favorito
+        write_persona(persona)
 
 def get_persona_mas_favorita():
+    dict_personas = {}
     lista = os.listdir("./db")
-    mas_favorito = None,0
-    print(lista)
     for archivo in lista:
         with open("./db/{}".format(archivo),"rb") as reader:
             persona = load(reader)
-            if len(persona.seguidores) > mas_favorito[1]:
-                mas_favorito = persona,len(persona.seguidores)
-    return mas_favorito[0]
+            print(persona,persona.favorito)
+            if persona.favorito not in dict_personas:
+                dict_personas[persona.favorito] = 1
+            else:
+                dict_personas[persona.favorito] += 1
+    mas_favorito = '',0
+    for key in dict_personas:
+        if dict_personas[key] > mas_favorito[1]:
+            mas_favorito = key,dict_personas[key]
+
+    return get_persona(mas_favorito[0])
 
 # ----------------------------------------------------- #
 # Codigo para probar su tarea - No necesitan entenderlo #
@@ -124,10 +123,10 @@ if __name__ == '__main__':
     jecastro1 = get_persona("jecastro1")
     bcsaldias = get_persona("bcsaldias")
     kpb = get_persona("kpb")
-    """
+
     print_data(jecastro1)
     print_data(bcsaldias)
     print_data(kpb)
-    """
+
     print(existe_persona(""))
     print(get_persona_mas_favorita())
