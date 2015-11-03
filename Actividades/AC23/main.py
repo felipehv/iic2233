@@ -33,7 +33,7 @@ class Persona:
 def existe_persona(_id):
     lista = os.listdir("./db")
     for name in lista:
-        if _id in name:
+        if _id == name.replace(".iic2233","") and ".iic2233" in name:
             return True
     return False
 
