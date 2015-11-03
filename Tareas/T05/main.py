@@ -15,7 +15,7 @@ class Game(ui[0], ui[1]):
         #self._create_thread()
         self.mouseEvent = QtGui.QMouseEvent()
 
-        self.player = Player()
+        self.player = Player(0,0,self)
 
     def comenzar(self):
         sender = self.sender()
