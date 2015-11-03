@@ -128,5 +128,4 @@ if __name__ == '__main__':
     print_data(bcsaldias)
     print_data(kpb)
 
-    print(existe_persona(""))
     print(get_persona_mas_favorita())
