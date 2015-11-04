@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mainWindows</class>
- <widget class="QMainWindow" name="mainWindows">
+ <class>main</class>
+ <widget class="QMainWindow" name="main">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="grid">
    <widget class="QPushButton" name="botonComenzar">
     <property name="geometry">
      <rect>
@@ -32,6 +32,17 @@
     <property name="text">
      <string>Comenzar el Juego</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>751</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="grid_2"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
