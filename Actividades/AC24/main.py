@@ -81,7 +81,10 @@ if __name__ == "__main__":
     pick = input("Ingrese X si quiere ser servidor o O si desea ser cliente: ")
     if pick == "X":
         server = Servidor(gato)
-        server.aceptar()
+        #server.aceptar()
+        escuchador = threading.Thread(target=server.aceptar)
+        escuchador.daemon = True
+        escuchador.start()
         while True:
             mensaje = input("Jugador {0} debe ingresar la posicion en que desea jugar".format(server.gato.turno))
             server.enviar(mensaje)
