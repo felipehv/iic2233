@@ -9,9 +9,10 @@ class Service:
         self.port = 10001
 
     def escuchar(self):
-        data = self.socket.recv(1024)
-        data = data.decode('ascii')
-        print("El otro jugador puso su ficha en {}".format(data))
+        while True:
+            data = self.socket.recv(1024)
+            data = data.decode('ascii')
+            print("El otro jugador puso su ficha en {}".format(data))
 
     def enviar(self, mensaje):
         if not self.turno:
