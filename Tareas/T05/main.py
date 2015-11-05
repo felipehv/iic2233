@@ -1,9 +1,9 @@
-from PyQt4 import QtGui, uic, QtCore, QtCore, QLabel
+from PyQt4 import QtGui, uic, QtCore, QtCore
 import threading
 from classes import *
 import os
-from math import atan
-# Cargamos la interfaz creada en QtDesigner
+from math import atan2
+
 class MainWindow(QtGui.QMainWindow):
 
     def __init__(self):
@@ -17,6 +17,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def actualizar_barra(self,mensaje):
         self.statusBar().showMessage(mensaje)
+
+    def juego(self):
+        self.game_widget.juego()
 
 class MenuWidget(QtGui.QWidget):
 
@@ -44,42 +47,59 @@ class GameWidget(QtGui.QWidget):
         super().__init__()
         self.init_GUI() 
         self.setMouseTracking(True)
-        self.player = Player(0,0,self)
         self.mainwindow = main
 
     def init_GUI(self):
-        self.persona = QtGui.QPushButton("Jugador",self)
-        self.persona.clicked.connect(self.mover)
+        self.persona = QtGui.QLabel(self)
+        self.persona.setGeometry(10, 10, 50, 50)
+        #use full ABSOLUTE path to the image, not relative
+        self.persona.setPixmap(QtGui.QPixmap(os.getcwd() + "/sprites/ball.png"))
 
     def mover(self):
-        x = self.persona.x
-        sender = self.sender()
-        sender.move(20,20)
-        self.mainwindow.actualizar_barra(MouseCoordinates())
+        xx,yy = self.vector
+        #sender = self.sender()
+        x = self.persona.x()
+        y = self.persona.y()
+        self.persona.move(x+xx*2,y+yy*2)
 
-    def vector(self):
-        pass
+    def calcular_vector(self,m_x,m_y):
+        x = self.persona.x()
+        y = self.persona.y()
+        x,y = m_x - x, m_y - y
+        n = (x**2 + y**2)**0.5
+        self.vector = x/n , y/n
 
     def vectorOrtogonal(self):
         vector = self.vector()
 
+    def rotar(self):
+        pass
 
-    class MouseCoordinates(QLabel):
-     
-        def __init__(self, parent=None):
-            super(MouseCoordinates, self).__init__(parent)
-     
-            self.update()
-     
-        def update(self):
-     
-            currentPos = QCursor.pos()
-     
-            x = currentPos.x()
-            y = currentPos.y()
-     
-            self.setText(" Mouse: %d / %d " % (x, y))
-            return x,y
+    def mousePressEvent(self,event):
+        print('hola')
+
+    def keyPressEvent(self,event):
+        sender = self.sender()
+        print(event.text())
+        if event.text() == "w":
+            self.mover()
+    def mouseMoveEvent(self,event):
+        self.calcular_vector(event.x(),event.y())
+        self.rotar()
+
+
+class MouseCoordinates():
+ 
+    def __init__(self, parent=None):     
+        self.update()
+ 
+    def update(self):
+ 
+        currentPos = QCursor.pos()
+ 
+        x = currentPos.x()
+        y = currentPos.y()
+        return x,y
 
 
     """
@@ -106,20 +126,6 @@ class GameWidget(QtGui.QWidget):
         #    pixmap = pixmap.transformed(QtGui.QTransform().scale(-1, 1))
 
         label.setPixmap(pixmap)
-
-
-    @property
-    def tiempo_intervalo(self):
-        return self.thread.interval
-
-    @tiempo_intervalo.setter
-    def tiempo_intervalo(self, value):
-        self.thread.interval = value
-
-    def _create_thread(self):
-        self.thread = Worker(self.__act_queue, 0)
-        self.connect(self.thread, QtCore.SIGNAL("do"), self.__do)
-        self.thread.start()
     """
 
 if __name__ == '__main__':

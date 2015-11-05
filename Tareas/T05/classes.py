@@ -21,6 +21,9 @@ class Zombie():
 
 	def attack(self,player):
 		player.health -= random.randint()
+
+	def recta(self,player):
+		player_pos = player.pos()
 """
 class Worker(QtCore.QThread):
 
