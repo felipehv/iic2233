@@ -53,7 +53,7 @@ class GameWidget(QtGui.QWidget):
         self.persona = QtGui.QLabel(self)
         self.persona.setGeometry(10, 10, 50, 50)
         #use full ABSOLUTE path to the image, not relative
-        self.persona.setPixmap(QtGui.QPixmap(os.getcwd() + "/sprites/ball.png"))
+        self.persona.setPixmap(QtGui.QPixmap(os.getcwd() + "/sprites/pacman.png"))
 
     def mover(self):
         xx,yy = self.vector
@@ -74,32 +74,21 @@ class GameWidget(QtGui.QWidget):
 
     def rotar(self):
         pass
+        #pixmap = pixmap.transformed(QtGui.QTransform().rotate(theta))
 
     def mousePressEvent(self,event):
-        print('hola')
+        pass
+        #print('hola')
 
     def keyPressEvent(self,event):
-        sender = self.sender()
+        #sender = self.sender()
         print(event.text())
         if event.text() == "w":
             self.mover()
+
     def mouseMoveEvent(self,event):
         self.calcular_vector(event.x(),event.y())
-        self.rotar()
-
-
-class MouseCoordinates():
- 
-    def __init__(self, parent=None):     
-        self.update()
- 
-    def update(self):
- 
-        currentPos = QCursor.pos()
- 
-        x = currentPos.x()
-        y = currentPos.y()
-        return x,y
+        #self.rotar()
 
 
     """
