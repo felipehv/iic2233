@@ -4,6 +4,7 @@ from classes import *
 import os
 from math import atan2, degrees
 
+
 class MainWindow(QtGui.QMainWindow):
 
     def __init__(self):
@@ -84,12 +85,6 @@ class GameWidget(QtGui.QWidget):
         if event.text() == "p":
             self.mainwindow.setCentralWidget(self.mainwindow.pause_widget)
 
-        #self.persona = QtGui.QLabel(self)
-        #self.persona.setGeometry(10, 10, 50, 50)
-        #self.persona.setScaledContents(True)
-        #use full ABSOLUTE path to the image, not relative
-        #self.persona.setPixmap(QtGui.QPixmap(os.getcwd() + "/sprites/player.png"))
-
     def mover(self,ortogonal = False):
         if not ortogonal:
             xx,yy = self.vector
@@ -121,6 +116,9 @@ class GameWidget(QtGui.QWidget):
         self.my = event.y()
         self.persona.calcular_vector(event.x(),event.y())
         self.persona.rotate()
+
+    def run(self):
+        pass
 
 if __name__ == '__main__':
     # Inicializamos la aplicación de la misma forma que 

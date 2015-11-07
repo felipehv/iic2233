@@ -3,6 +3,8 @@ import random
 import threading
 from math import atan2, degrees, pi
 import os
+import random
+
 class Player(QtGui.QLabel):
 
     def __init__(self,game):
@@ -64,28 +66,37 @@ class Zombie(QtGui.QLabel):
         self.health = 1000
         self.game = game
         self.vector = 0,0
-        #self.setGeometry(10, 10, 50, 50)
-        #self.setScaledContents(True)
+        self.setScaledContents(True)
         #use full ABSOLUTE path to the image, not relative
         self.pixmap = QtGui.QPixmap(os.getcwd() + "/sprites/player.png")
         self.setPixmap(self.pixmap)
 
     def mover(self):
-        self.vector()
+        self.calcular_vector()
         xx,yy = self.vector
         x = self.x()
         y = self.y()
         self.move(x+xx*2,y+yy*2)
 
     def attack(self,player):
-        player.health -= random.randint()
+        player.health -= random.randint(1,3)
 
-    def calcular_vector(self,m_x,m_y):
-        x = self.game.persona.x()
-        y = self.game.persona.y()
+    def calcular_vector(self):
+        m_x = self.game.persona.x()
+        m_y = self.game.persona.y()
+        x = self.x()
+        y = self.y()
         x,y = m_x - x, m_y - y
         n = (x**2 + y**2)**0.5
-        self.persona.vector = x/n , y/n
+        self.vector = x/n , y/n
+
+    def mover():
+        self.move(self.x*6,self.y*6)
+
+class Bala():
+
+    def __init__(self,game):
+        self.game = game
 
     def mover():
         self.move(self.x*6,self.y*6)
