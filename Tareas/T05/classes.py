@@ -105,9 +105,9 @@ class Zombie(QtGui.QLabel):
 
     def aparecer(self):
         if random.randint(1,2) == 1:
-            return 0,random.randint(0,200)
+            return 0,random.randint(0,599)
         else:
-            return random.randint(0,200),0
+            return random.randint(0,799),0
 
     def mover(self):
         if self.x() - 15 <= self.game.persona.x() <= self.x() + 15\
@@ -117,7 +117,8 @@ class Zombie(QtGui.QLabel):
         xx,yy = self.vector
         x = self.x()
         y = self.y()
-        self.move(x+xx*1.5,y+yy*1.5)
+        if not self.colision():
+            self.move(x+xx*1.5,y+yy*1.5)
         self.rotate()
 
     def attack(self):
@@ -150,8 +151,17 @@ class Zombie(QtGui.QLabel):
         self.pixmap = self.pixmap.transformed(QtGui.QTransform().rotate(theta))
         self.setPixmap(self.pixmap)
 
+    def colision(self):
+        for zombie in self.game.zombies:
+            if zombie.x() - 15 <= self.x()+self.vector[0] <= zombie.x() + 15\
+            and zombie.y() - 15 <= self.y()+self.vector[1] <= zombie.y() + 15:
+                return True
+        print("me muevo")
+        return False
+
     def morir(self):
         self.isAlive = False
+
 
 class Bala(QtGui.QLabel):
 
@@ -180,8 +190,8 @@ class Bala(QtGui.QLabel):
                      (self.y()-self.inicial[1])**2) ** 0.5
         if diferencia > self.max_dist:
             self.isAlive = False
-
             return
+
         self.verificar()
         xx = self.vector[0]
         yy = self.vector[1]
@@ -194,9 +204,7 @@ class Bala(QtGui.QLabel):
         x,y = m_x - x, m_y - y
         n = (x**2 + y**2)**0.5
         if n == 0:
-            
             return 0,0
-        print(x/n,y/n)
         return x/n , y/n
 
     def verificar(self):
@@ -204,35 +212,46 @@ class Bala(QtGui.QLabel):
             if self.x() - 20 <= zombie.x() <= self.x() + 20\
             and self.y() - 20 <= zombie.y() <= self.y() + 20:
                 zombie.morir()
+                self.isAlive = False
                 break
 
-class Supply():
+class Supply(QtGui.QLabel):
     types = ["ammo", "health"]
     def __init__(self,game):
         print("Supply here!")
-        self.type = random.choice(types)
+        super().__init__(game)
+        self.type = random.choice(Supply.types)
         self.supply = random.randint(10,40)
         self.game = game
-        self.isAlive = True
-        self.max_dist = 400
         self.setScaledContents(True)
         self.pixmap = QtGui.QPixmap(os.getcwd() + "/sprites/supply.png")
         self.setScaledContents(True)
         self.setGeometry(0,0,15,15)
         self.setPixmap(self.pixmap)
-        self.move(self.inicial[0],self.inicial[1])
+        self.move(random.randint(0,799),random.randint(0,599))
         self.show()
+        self.isAlive = True
+
+        self.worker = SupplyWorker(self)
+        self.worker.start()
 
     def verificar(self):
-        if self.x() - 15  <= self.game.persona.x() <= self.x() + 15\
-        and self.y() - 15 <= self.game.persona.y() <= self.y() + 15:
+        if self.x() - 30  <= self.game.persona.x() <= self.x() + 30\
+        and self.y() - 30 <= self.game.persona.y() <= self.y() + 30:
             self.entregar()
 
     def entregar(self):
         if self.type == "ammo":
             self.game.persona.ammo += self.supply
+            ammo = self.game.persona.ammo
+            self.game.persona.ammo_counter.display(ammo)
         else:
             self.game.persona.health += self.supply
+            if self.game.persona.health >= 100:
+                self.game.persona.health = 100
+            vida = self.game.persona.health
+            self.game.persona.life_bar.setValue(vida)
+        self.isAlive = False
         self.hide()
 
 class ListaZombies(list):
