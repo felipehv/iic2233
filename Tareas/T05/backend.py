@@ -68,9 +68,9 @@ class GameWorker(QtCore.QThread):
         self.paused = False
 
     def funcion(self,t):
-        lamda = round(random.expovariate(1/10) + 0.5)
-        if t>0:
-            lamda = lamda//t
+        lamda = round(random.expovariate(1/20) + 0.5)
+        #if t>0:
+        #    lamda = lamda//t + t
         return t + lamda
 
     def pause(self):
@@ -90,6 +90,7 @@ class GameWorker(QtCore.QThread):
                     prox_zombie = self.funcion(self.parent.t)
                 if self.parent.t % 10 == 0:
                     self.trigger.emit("sup")
+                self.trigger.emit("time")
             time.sleep(1)
         self.exiting = True
 

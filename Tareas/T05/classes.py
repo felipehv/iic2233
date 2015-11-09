@@ -80,8 +80,10 @@ class Player(QtGui.QLabel):
     def morir(self):
         self.isAlive = False
         self.game.isAlive = False
-        menu = self.game.mainwindow.menu_widget()
-        self.game.mainwindow.setCentralWidget()
+        end = self.game.mainwindow.end
+        end.actualizar()
+        self.game.mainwindow.setCentralWidget(end)
+
 
 class Zombie(QtGui.QLabel):
     def __init__(self,game):
@@ -94,7 +96,6 @@ class Zombie(QtGui.QLabel):
         self.pixmap = QtGui.QPixmap(os.getcwd() + "/sprites/pacman.png")
         self.setPixmap(self.pixmap)
         pos = self.aparecer()
-        print(pos)
         self.move(pos[0],pos[1])
         self.show()
 
@@ -131,7 +132,6 @@ class Zombie(QtGui.QLabel):
         life = self.game.persona.health
         self.game.persona.life_bar.setValue(life)
         self.esperar = 100
-        print("ataque")
 
     def calcular_vector(self):
         m_x = self.game.persona.x()
@@ -153,10 +153,10 @@ class Zombie(QtGui.QLabel):
 
     def colision(self):
         for zombie in self.game.zombies:
-            if zombie.x() - 15 <= self.x()+self.vector[0] <= zombie.x() + 15\
-            and zombie.y() - 15 <= self.y()+self.vector[1] <= zombie.y() + 15:
+            if zombie.x() - 30 <= self.x()+self.vector[0] <= zombie.x() + 30\
+            and zombie.y() - 30 <= self.y()+self.vector[1] <= zombie.y() + 30\
+            and zombie != self:
                 return True
-        print("me muevo")
         return False
 
     def morir(self):
@@ -212,6 +212,7 @@ class Bala(QtGui.QLabel):
             if self.x() - 20 <= zombie.x() <= self.x() + 20\
             and self.y() - 20 <= zombie.y() <= self.y() + 20:
                 zombie.morir()
+                self.game.puntaje += 2
                 self.isAlive = False
                 break
 
@@ -236,8 +237,8 @@ class Supply(QtGui.QLabel):
         self.worker.start()
 
     def verificar(self):
-        if self.x() - 30  <= self.game.persona.x() <= self.x() + 30\
-        and self.y() - 30 <= self.game.persona.y() <= self.y() + 30:
+        if self.x() - 50  <= self.game.persona.x() <= self.x() + 50\
+        and self.y() - 50 <= self.game.persona.y() <= self.y() + 50:
             self.entregar()
 
     def entregar(self):

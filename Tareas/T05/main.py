@@ -10,12 +10,14 @@ class MainWindow(QtGui.QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.title = "Hola"
         self.game_widget = None
         self.menu_widget = MenuWidget(self)
         self.setCentralWidget(self.menu_widget)
         self.setStyleSheet("QMainWindow border-image: url({}/sprites/image.jpg);".format(os.getcwd()))
         self.setGeometry(50,50,800,600)
         self.pause = False
+        self.end = endWidget(self)
 
     def actualizar_barra(self,mensaje):
         self.statusBar().showMessage(mensaje)
@@ -96,11 +98,12 @@ class GameWidget(QtGui.QWidget):
     def __init__(self,main):
         super().__init__()
         self.zombies = []
-        self.init_GUI() 
         self.setMouseTracking(True)
         self.mainwindow = main
         self.isAlive = True
         self.supplies = []
+        self.puntaje = 0
+        self.init_GUI() 
 
         #Thread
         self.worker = GameWorker(self)
@@ -109,10 +112,14 @@ class GameWidget(QtGui.QWidget):
     def init_GUI(self):
         self.persona = Player(self)
         self.persona.move(50,50)
+        self.label = QtGui.QLabel("Puntaje")
+        self.label.move(255,0)
+        self.puntajelcd = QtGui.QLCDNumber(self)
+        self.puntajelcd.move(300,0)
+        self.puntajelcd.display(self.puntaje)
 
     def mousePressEvent(self,event):
         if not self.worker.paused:
-            print(event.x(),event.y())
             self.persona.shoot()
 
     def mouseMoveEvent(self,event):
@@ -122,16 +129,9 @@ class GameWidget(QtGui.QWidget):
             self.persona.calcular_vector(event.x(),event.y())   
             self.persona.rotate()
 
-    def keyPressEvent(self,event):
-        print(event)
-        if event.text() == "w" :
-            self.persona.mover()
-        elif event.text() == "d":
-            self.persona.mover("d")
-        elif event.text() == "p":
-            self.mainwindow.setCentralWidget(self.mainwindow.pause_widget)
-
     def accion(self,action):
+        self.puntaje += 1
+        self.puntajelcd.display(self.puntaje)
         if action == "sup":
             self.supply()
         elif action == "zom":
@@ -143,6 +143,8 @@ class GameWidget(QtGui.QWidget):
 loading_ui = uic.loadUiType(
     os.path.join(os.path.dirname(__file__), "loading.ui")
 )
+
+
 class Loading(*loading_ui):
 
     def __init__(self,main):
@@ -164,6 +166,20 @@ class Loading(*loading_ui):
             self.mainwindow.start()
             time.sleep(2)
         self.progressBar.setValue(valor + suma)
+
+
+class endWidget(QtGui.QWidget):
+    def __init__(self,main):
+        self.mainwindow = main
+        self.init_GUI()
+    
+    def init_GUI(self):
+        self.label = QtGui.QLabel("")
+        self.label.move(400,300)
+
+    def actualizar(self):
+        a = self.game.game_widget.puntaje
+        self.label.setText("Has perdido, tu puntaje es {}".format(a))
 
 if __name__ == '__main__':
     app = QtGui.QApplication([])
