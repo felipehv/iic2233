@@ -23,6 +23,9 @@ class Player(QtGui.QLabel):
         self.ammo_counter.move(500,0)
         self.ammo_counter.display(self.ammo)
         self.ammo_counter.show()
+        self.pixs = ["/sprites/player.png",
+        "/sprites/player izquierdo.png",
+        "/sprites/player derecho.png"]
 
         #self.setGeometry(40, 40, 50, 50)
         self.setScaledContents(True)
@@ -32,7 +35,7 @@ class Player(QtGui.QLabel):
 
     def mover(self, ort = False):
         self.calcular_vector(self.game.mx,self.game.my)
-        self.rotate()
+        self.rotate(random.choice(self.pixs))
         if not ort:
             xx,yy = self.vector
         elif ort == "d":
@@ -52,10 +55,10 @@ class Player(QtGui.QLabel):
         vector = -self.vector[1],self.vector[0]
         return vector
 
-    def rotate(self):
+    def rotate(self, pic="/sprites/player.png"):
         del self.pixmap
         theta = degrees(atan2(self.vector[1],self.vector[0]) + pi/2)
-        self.pixmap = QtGui.QPixmap(os.getcwd() + "/sprites/player.png")
+        self.pixmap = QtGui.QPixmap(os.getcwd() + pic)
         self.pixmap = self.pixmap.scaledToHeight(60, QtCore.Qt.SmoothTransformation)
         self.pixmap = self.pixmap.transformed(QtGui.QTransform().rotate(theta))
         self.setPixmap(self.pixmap)
@@ -110,7 +113,10 @@ class Zombie(QtGui.QLabel):
         else:
             return random.randint(0,799),0
 
-    def mover(self):
+    def mover(self, a=None):
+        if a:
+            self.die_image()
+            return
         if self.x() - 15 <= self.game.persona.x() <= self.x() + 15\
         and self.y() - 15 <= self.game.persona.y() <= self.y() + 15:
             self.attack()
@@ -162,6 +168,12 @@ class Zombie(QtGui.QLabel):
     def morir(self):
         self.isAlive = False
 
+    def die_image(self):
+        theta = degrees(atan2(self.vector[1],self.vector[0]))
+        self.pixmap = QtGui.QPixmap(os.getcwd() + "/sprites/pacman_dead.png")
+        self.pixmap = self.pixmap.transformed(QtGui.QTransform().rotate(theta))
+        self.setPixmap(self.pixmap)
+
 
 class Bala(QtGui.QLabel):
 
@@ -209,8 +221,8 @@ class Bala(QtGui.QLabel):
 
     def verificar(self):
         for zombie in self.game.zombies:
-            if self.x() - 20 <= zombie.x() <= self.x() + 20\
-            and self.y() - 20 <= zombie.y() <= self.y() + 20:
+            if self.x() - 40 <= zombie.x() <= self.x() + 40\
+            and self.y() - 40 <= zombie.y() <= self.y() + 40:
                 zombie.morir()
                 self.game.puntaje += 2
                 self.isAlive = False

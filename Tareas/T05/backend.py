@@ -3,7 +3,7 @@ import time
 import random
 
 class ZombieWorker(QtCore.QThread):
-    trigger = QtCore.pyqtSignal()
+    trigger = QtCore.pyqtSignal(bool)
     
     def __init__(self, parent):
         super().__init__()
@@ -26,8 +26,10 @@ class ZombieWorker(QtCore.QThread):
         print("Me comienzo a mover")
         while self.parent.isAlive:
             if not self.paused:
-                self.trigger.emit()
+                self.trigger.emit(False)
             time.sleep(0.01)
+        self.trigger.emit(True)
+        time.sleep(1)
         self.exiting = True
         self.parent.hide()
         self.parent.game.zombies.remove(self.parent)
@@ -68,7 +70,7 @@ class GameWorker(QtCore.QThread):
         self.paused = False
 
     def funcion(self,t):
-        lamda = round(random.expovariate(1/20) + 0.5)
+        lamda = round(random.expovariate(1/10) + 0.5)
         #if t>0:
         #    lamda = lamda//t + t
         return t + lamda
