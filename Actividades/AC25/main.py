@@ -50,8 +50,8 @@ class Cliente:
             mensaje = input(
                 "Ingrese toda la historia (respetando mayusculas y minusculas)\n")
             self.enviar(mensaje)
-            os.system("clear")
-
+            os.system("clear"
+)
     def enviar(self, mensaje):
         self.s_cliente.send(mensaje.encode('utf-8'))
 
