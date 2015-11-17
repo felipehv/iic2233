@@ -14,11 +14,17 @@ class Table:
         self.name = name
         self.votes = votes
 
-movimientos = {"Solidaridad": 0 , "Nau!": 0, "1A":0, "Crecer": 0}
 mesas = []
 if __name__ == '__main__':
+    movimientos = dict()
     user = getpass.getpass(prompt='Ingrese el usuario: ', stream=None)
     password = getpass.getpass(prompt='Ingrese la contrasena: ', stream=None)
+    movs = requests.get('http://votaciometro.cloudapp.net/api/v1/lists', auth=HTTPBasicAuth(user, password))
+    if movs.status_code == 200:
+        movs = movs.json()
+        for mov in movs:
+            movimientos[mov] = 0
+
     tables = requests.get('http://votaciometro.cloudapp.net/api/v1/tables', auth=HTTPBasicAuth(user, password))
     if tables.status_code == 200:
         tables = tables.json()
