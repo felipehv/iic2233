@@ -27,7 +27,7 @@ class Cliente:
         while True:
             data = self.s_cliente.recv(1024)
             tupla = pickle.loads(data)
-            with open("./Cliente_{}".format(tupla[0]),"wb") as writer:
+            with open("Cliente_{}".format(tupla[0]),"wb") as writer:
                 pickle.dump(tupla[1],writer)
             
     def menu(self):
@@ -45,12 +45,12 @@ class Cliente:
                     print(key)
 
             elif opcion == "2":
-                lista = os.listdir("./Archivos")
+                lista = os.listdir("Archivos")
                 for i in range(len(lista)):
                     print(i,lista[i])
                 opcion = input("Seleccione archivo para agregar: ")
 
-                with open("./Archivos/{}".format(lista[int(opcion)]),"rb") as reader:
+                with open("Archivos\{}".format(lista[int(opcion)]),"rb") as reader:
                     data = pickle.load(reader)
                     tupla = (lista[int(opcion)],data)
                     tupla = pickle.dumps(tupla)
@@ -104,7 +104,7 @@ class Servidor:
         while True:
             data = self.cliente.recv(1024)
             tupla = pickle.loads(data)
-            with open("./Servidor_{}".format(tupla[0]),"wb") as writer:
+            with open("Servidor_{}".format(tupla[0]),"wb") as writer:
                 picke.dump(tupla[1],writer)
 
     def aceptar(self):
@@ -130,12 +130,12 @@ class Servidor:
                     print(key)
 
             elif opcion == "2":
-                lista = os.listdir("./Archivos")
+                lista = os.listdir("Archivos")
                 for i in range(len(lista)):
                     print(i,lista[i])
                 opcion = input("Seleccione archivo para agregar: ")
 
-                with open("./Archivos/{}".format(lista[int(opcion)]),"rb") as reader:
+                with open("Archivos\{}".format(lista[int(opcion)]),"rb") as reader:
                     data = pickle.load(reader)
                     tupla = (lista[int(opcion)],data)
                     tupla = pickle.dumps(tupla)
