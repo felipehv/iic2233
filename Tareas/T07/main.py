@@ -72,6 +72,8 @@ class DropWidget(formulario[0], formulario[1]):
         self.newfolderButton.clicked.connect(self.new_folder)
         self.historyButton.clicked.connect(self.history)
         self.renameButton.clicked.connect(self.rename)
+        self.originButton.clicked.connect(self.move1)
+        self.moveButton.clicked.connect(self.move2)
 
         self.treeView.dw = self
         self.treeView.itemPressed.connect(self.treeView.dw.clicked)
@@ -119,11 +121,15 @@ class DropWidget(formulario[0], formulario[1]):
         self.popup.Show(str(md))
 
     def new_folder(self, button):
+        if self.newname.text() == "":
+            return
         path = self.actualpath + "/{}".format(self.newname.text())
         self.dbx.files_create_folder(path)
         self.showItems(self.actualpath)
 
     def rename(self, button):
+        if self.label3.text() == "":
+            return
         path = self.actualpath + "/{}".format(self.label3.text())
         try:
             md,res = self.dbx.files_download(path)
@@ -131,7 +137,7 @@ class DropWidget(formulario[0], formulario[1]):
         except:
             return
         self.dbx.files_delete(path)
-        newpath = self.actualpath + "/{}".format(self.newname)
+        newpath = self.actualpath + "/{}".format(self.newname.text())
         try:
             res = self.dbx.files_upload(
                 data, newpath, mode=dropbox.files.WriteMode.add,
@@ -142,20 +148,20 @@ class DropWidget(formulario[0], formulario[1]):
             return None
         self.showItems(self.actualpath)
 
-    def move(self, button):
-        #Path: complete path
-        #Topath: path where the file or folder will appear
-        self.dialog = QtGui.QWidget()
-        self.dialog.button = QtGui.QPushButton("Ok")
-        self.dialog.button.clicked.connect(self._move)
-        self.dialog.tree = self.treeView
-        self.dialog.text = QtGui.QLabel()
-
+    def move1(self, button):
         path = self.actualpath + "/{}".format(self.label3.text())
+        self.origin.setText(path)
 
-    def _move(self, button, path, topath):
-        self.dialog.hide()
-        self.dbx.files_move(path,topath)
+    def move2(self, button):
+        path = self.actualpath + "/{}".format(self.label3.text())
+        try:
+            md = self.get_metadata(path)
+        except:
+            return
+        if isinstance(md,dropbox.files.FolderMetadata):
+            print(self.origin.text(),path + "{}".format(self.origin.text()))
+            self.dbx.files_move(self.origin.text(),path + "{}".format(self.origin.text()))
+            self.showItems(self.actualpath)
         
 
     def download_folder(self, path, localpath):
